@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# wrapper script to pass the correct -B option to ghcjs
+
+topdir="/home/ssoss/.ghcjs/x86_64-linux-8.4.0.1-8.4.2.20180420/ghcjs"
+# executablename="/home/ssoss/Documents/Programming/Haskell/ghcjs/.cabal-sandbox/libexec/x86_64-linux-ghc-8.4.4/ghcjs-8.4.0.1/ghcjs"
+executablename="/home/ssoss/.local/libexec/ghcjs"
+exec "$executablename" -B"$topdir" ${1+"$@"}

@@ -1,0 +1,11 @@
+# vim: ft=tcl
+
+if {$tcl_interactive} {
+    package require tclreadline
+    namespace eval ::tclreadline {
+        proc prompt1 {} {
+            return "%% "
+        }
+    }
+    ::tclreadline::Loop 
+}

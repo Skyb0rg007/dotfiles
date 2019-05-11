@@ -1,0 +1,5 @@
+[user]
+	email = skyler.soss@gmail.com
+	name = Skye Soss
+[credential]
+	helper = cache --timeout=3600

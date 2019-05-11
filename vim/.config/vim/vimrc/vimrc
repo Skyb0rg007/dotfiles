@@ -1,0 +1,223 @@
+set nocompatible " Needs to happen before viminfo is set
+set undodir=~/.cache/vim/undo
+set directory=~/.cache/vim/swap
+set backupdir=~/.cache/vim/backup
+set viminfo+=n~/.cache/vim/viminfo
+set runtimepath+=~/.config/vim
+
+" Starts the VimPlug block
+call plug#begin('$XDG_CONFIG_HOME/vim/plugged')
+
+" ---- Clojure ----
+" Clojure quasi-REPL
+Plug 'tpope/vim-fireplace',                       {'for':'clojure'}
+" Lisp parenthesis help
+Plug 'guns/vim-sexp',                             {'for':'clojure'}
+" Sexy people = sexy mappings
+Plug 'tpope/vim-sexp-mappings-for-regular-people',{'for':'clojure'}
+" More Clojure support
+Plug 'guns/vim-clojure-static',                   {'for':'clojure'}
+" More Clojure highlighting
+Plug 'guns/vim-clojure-highlight',                {'for':'clojure'}
+" Clojure REPL session
+Plug 'dgrnbrg/vim-redl',                          {'for':'clojure'}
+" Rainbow Parenthesis
+Plug 'luochen1990/rainbow',                       {'for':'clojure'}
+
+" ---- Syntax ----
+Plug 'https://bitbucket.org/spilt/vim-nomsu', { 'for': 'nomsu' }
+Plug 'sheerun/vim-polyglot'            " Language packs
+Plug 'vim-scripts/asmx86'              " Highlighting for nasm
+Plug 'pbrisbin/vim-syntax-shakespeare' " Shakespeare highlighting (for Yesod)
+Plug 'VaiN474/vim-etlua'               " Etlua syntax (for Lapis)
+Plug 'leafo/moonscript-vim'            " Moonscript syntax
+Plug 'pboettch/vim-cmake-syntax'       " Modern Cmake syntax
+Plug 'idris-hackers/idris-vim'         " Idris syntax + mappings
+Plug 'posva/vim-vue'                   " Vue syntax
+
+" ---- Navigation ----
+Plug 'kien/ctrlp.vim'                  " Fuzzy finder
+Plug 'scrooloose/nerdtree'             " NERDTree
+Plug 'easymotion/vim-easymotion'       " EasyMotion
+Plug 'tpope/vim-unimpaired'            " Useful key mappings
+Plug 'wellle/targets.vim'              " Extra targets
+Plug 'bkad/CamelCaseMotion'            " camelCase and snake_case movements
+Plug 'salsifis/vim-transpose'          " transposing stuff
+
+" ---- GUI ----
+Plug 'KeitaNakamura/neodark.vim'       " Neodark
+Plug 'maximbaz/lightline-ale'          " Lightline + ALE
+Plug 'itchyny/lightline.vim'           " Status bar
+
+" ---- Integration ----
+Plug 'greyblake/vim-preview'           " <leader>P
+Plug 'xolox/vim-easytags'              " Generate tags automatically
+Plug 'xolox/vim-misc'                  " For easytags
+Plug 'majutsushi/tagbar'               " Handles showing class instances
+Plug 'mtth/scratch.vim'                " Scratch window
+Plug 'w0rp/ale'                        " Continuous linting
+Plug 'SirVer/ultisnips'                " Snippet engine
+Plug 'honza/vim-snippets'              " The snippets themselves
+Plug 'ervandew/supertab'               " Use <Tab> to complete words
+Plug 'tpope/vim-surround'              " Surrounding quotes
+Plug 'tpope/vim-repeat'                " Helps with Surround.vim
+Plug 'airblade/vim-gitgutter'          " Shows git diff in real time
+Plug 'scrooloose/nerdcommenter'        " NERDCommenter
+Plug 'tpope/vim-fugitive'              " Git integration
+Plug 'godlygeek/tabular', {'on':['Tab']} " Formatting
+Plug 'jiangmiao/auto-pairs'            " Closing parens, quotes, etc
+Plug 'tibabit/vim-templates'           " Use templates for file extensions
+Plug 'vim-erlang/erlang-motions.vim'   " Motions for Erlang
+Plug 'vim-erlang/vim-erlang-skeletons' " Erlang skeletons
+Plug 'vim-erlang/vim-erlang-omnicomplete' " Erlang omnicomplete
+Plug 'jakwings/vim-terra'              " Syntax for Terra
+Plug 'junegunn/goyo.vim'               " Distraction-free writing
+Plug 'mattn/emmet-vim'                 " HTML tag completor
+Plug 'editorconfig/editorconfig-vim'   " Editorconfig support
+" Plug 'christoomey/vim-tmux-navigator' " Tmux
+Plug 'junegunn/vader.vim'
+
+
+" ---- Haskell ----
+Plug 'pbrisbin/vim-syntax-shakespeare' " For Yesod templates
+Plug 'itchyny/vim-haskell-indent'
+" Plug 'meck/vim-brittany'
+
+call plug#end()
+
+" Reset autocommands, so this can be sourced twice
+autocmd!
+" Use the :Man command
+runtime ftplugin/man.vim
+" ---- Set theory ----
+set incsearch      " Searching highlights immediately
+set mouse=a        " Allows use of the mouse
+set infercase      " Infer case while searching
+set tabstop=4      " Tab is 4 spaces
+set shiftwidth=4   " '>' is also 4 spaces
+set expandtab      " Tab is replaced with 4 spaces
+set ignorecase
+set smartcase
+set wildmenu
+set wildmode=full  " Tab complete in Command Bar
+filetype plugin on " Custom plugins for each filetype
+filetype indent on " Custom indentation for each filetype
+
+set nowrap           " Long lines don't wrap
+set textwidth=0 wrapmargin=0 " Don't auto-insert newlines
+set ttimeoutlen=100  " Why is there a delay between insert and normal?
+                     " Who wants that???
+set autoread         " Reload file if changed outside of vim
+set scrolloff=5      " Always keep 7 lines above
+set autoindent
+set smarttab
+
+" ---- Folds ---- 
+set foldmethod=indent
+set foldnestmax=5
+set foldlevelstart=99
+set foldcolumn=0
+
+" ---- Leader ----
+let mapleader      = ","  " <Leader> is , (the comma)
+let g:mapleader    = ","  " Same as above
+let maplocalleader = "\\"  " Because Sexp is weird
+
+
+" Override grep with ag
+if executable('ag')
+    set grepprg=ag\ --nogroup\ --nocolor
+endif
+command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+
+" Command to remove empty buffers
+function! CleanEmptyBuffers()
+    let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val) && empty(bufname(v:val)) && bufwinnr(v:val)<0 && !getbufvar(v:val, "&mod")')
+    if !empty(buffers)
+        exe 'bw ' . join(buffers, ' ')
+    endif 
+endfunction
+noremap <leader>ce :call CleanEmptyBuffers()<CR>
+
+" Set cursorline for normal mode only
+set cursorline
+autocmd  InsertLeave,WinEnter * set cursorline
+autocmd  InsertEnter,WinLeave * set nocursorline
+
+" Sets jumpstack when a number is used with a movement
+nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
+nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
+
+" Highlight the 80th character
+set cc=80
+
+" Recognize alien source files
+au BufNewFile,BufRead *.al set ft=al
+
+set keywordprg=:Man
+
+" Use man 3 as the K lookup if file is C or NASM
+autocmd FileType c,nasm,man setlocal keywordprg=:Man\ 3
+autocmd FileType c let &path = '.,/usr/include,/usr/lib/gcc/x86_64-redhat-linux/8/include/,/usr/local/include/'
+autocmd FileType nasm setlocal ts=8 sw=8
+autocmd Filetype tcl setlocal keywordprg=:Man\ n
+let ale_nasm_nasm_options = '-felf64'
+" man 1 if bash
+autocmd FileType bash,sh setlocal keywordprg=:Man\ 1
+
+" To recognize .asm files as nasm files
+autocmd BufNewFile,BufRead *.asm set ft=nasm
+
+" Recognize .fs as FORTH, not F#
+autocmd BufNewFile,BufRead *.fs set ft=gforth
+
+" Easytags screws with lua syntax highlighting, tags are fine though
+autocmd FileType lua let b:easytags_auto_highlight = 0
+
+" The Vim highlighting for C doesn't handle compound literals normally
+let c_no_curly_error = 1
+set cinoptions+=t0 " return type of function on same line
+set cinoptions+=:0 " case statements aligned with switch
+set cinoptions+=l1 " fix braces around case statements
+set cinoptions+=g0
+set makeprg=make\ -kj$(nproc)
+
+" Sets color scheme:
+syntax enable
+set termguicolors
+let g:neodark#background = '#202020'
+set background=dark
+colorscheme neodark
+
+" Sets the cursor to be a line in insert mode and block in normal mode
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
+
+" Helper func for executing a file you're editing
+function! ExecuteMyself()
+    if !executable(expand('%:p'))
+        :! chmod +x %:p
+    endif
+    :!%:p
+endfunction
+noremap <silent> <leader>xx :call ExecuteMyself()<CR>
+
+" This doesn't auto-recognize
+autocmd BufNewFile,BufRead *.julius  set ft=julius
+autocmd BufNewFile,BufRead *.hamlet  set ft=hamlet
+autocmd BufNewFile,BufRead *.lucius  set ft=lucius
+autocmd BufNewFile,BufRead *.cassius set ft=cassius
+autocmd BufNewFile,BufRead *.bats    set ft=sh
+autocmd BufNewFile,BufRead *.bats    :ALEDisableBuffer
+autocmd BufNewFile,BufRead *.idr     set ft=idris
+
+autocmd BufEnter *.md exe 'noremap <F5> :!google-chrome %:p<CR>'
+
+" Plugin settings
+source $XDG_CONFIG_HOME/vim/vimrc/plugins.vim
+" Mappings
+source $XDG_CONFIG_HOME/vim/vimrc/mappings.vim
+
+" Let local .vimrc override defaults
+set exrc
+set secure

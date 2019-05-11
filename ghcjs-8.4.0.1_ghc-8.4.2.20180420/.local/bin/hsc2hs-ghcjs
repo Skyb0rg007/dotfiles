@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# wrapper script to pass the correct options to hsc2hs
+
+# executablename="/home/ssoss/Documents/Programming/Haskell/ghcjs/.cabal-sandbox/libexec/x86_64-linux-ghc-8.4.4/ghcjs-8.4.0.1/hsc2hs-ghcjs"
+executablename="/home/ssoss/.local/libexec/hsc2hs-ghcjs"
+
+exec "$executablename" ${1+"$@"}

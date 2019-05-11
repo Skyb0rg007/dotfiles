@@ -1,0 +1,11 @@
+#!/bin/bash
+
+DB=$XDG_DATA_HOME/hoogle/default-haskell.hoo
+
+CMD="$1"
+if [[ $CMD = -- ]]; then
+    CMD=
+    shift
+fi
+
+"$XDG_DATA_HOME"/cabal/bin/hoogle $CMD --database="$DB" "$@"

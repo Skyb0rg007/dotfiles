@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if ! command -v erl >/dev/null 2>&1; then
+    echo "Need to load a kerl installation first!" >&2
+    exit 1
+fi
+
+if [[ -x ~/.cache/rebar3/bin/rebar3 ]]; then
+    echo "Cannot find rebar3 in '~/.cache/rebar3/bin/rebar3'!" >&2
+    exit 1
+fi
+
+~/.cache/rebar3/bin/rebar3 "$@"

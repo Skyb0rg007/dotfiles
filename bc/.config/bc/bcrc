@@ -1,0 +1,61 @@
+# Compute pi
+# Defined as a function to make use of 'scale'
+define pi() {
+    return 4*a(1) 
+}
+
+# arcsin
+define as(n) {
+    if (n == 1 || n == -1)
+        return n*pi/2
+    return a(n/sqrt(1-n^2)) 
+}
+
+# arccos
+define ac(n) {
+    if (n == 0)
+        return pi/2
+    return a(sqrt(1-n^2)/n) 
+}
+
+# arccot
+define acot(n) {
+    return pi/2 - a(n) 
+}
+
+# Returns integer part of n
+define int(n) {
+    auto oldscale
+    oldscale = scale
+    scale = 0
+    n /= 1 
+    scale = oldscale
+    return n 
+}
+
+# a^b == e^(b * log(a))
+define pow(a, b) {
+    if (b == int(b)) {
+        return a^int(b)
+    } else {
+        return e(b * l(a))
+    }
+}
+
+# factorial
+define fact(n) {
+    auto res
+    if (n < 0) {
+        print "Argument cannot be negative!\n"
+        halt
+    }
+    if (n != int(n)) {
+        print "Argument must be an integer!\n"
+        halt
+    }
+    res = 1
+    for (; n > 1; n--) {
+        res *= n
+    }
+    return res
+}

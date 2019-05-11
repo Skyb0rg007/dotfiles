@@ -1,0 +1,3 @@
+#!/usr/bin/bash
+
+spd-say -- "${1:-done}"

@@ -1,0 +1,13 @@
+#!/usr/bin/bash
+
+# A fun little script
+
+clear
+declare -a cows=(beavis.zen blowfish bud-frogs default 
+    dragon dragon-and-cow elephant eyes flaming-sheep 
+    ghostbusters kitty koala luke-koala 
+    mech-and-cow meow milk moofasa moose ren sheep skeleton 
+    small stegosaurus stimpy supermilker three-eyes 
+    turkey turtle tux udder vader)
+declare cow="${cows[$RANDOM % ${#cows}]}"
+fortune "${1-"-s"}" | cowsay -f "$cow" -n | lolcat
