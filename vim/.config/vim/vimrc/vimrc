@@ -34,6 +34,7 @@ Plug 'leafo/moonscript-vim'            " Moonscript syntax
 Plug 'pboettch/vim-cmake-syntax'       " Modern Cmake syntax
 Plug 'idris-hackers/idris-vim'         " Idris syntax + mappings
 Plug 'posva/vim-vue'                   " Vue syntax
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
 " ---- Navigation ----
 Plug 'kien/ctrlp.vim'                  " Fuzzy finder
@@ -74,14 +75,18 @@ Plug 'jakwings/vim-terra'              " Syntax for Terra
 Plug 'junegunn/goyo.vim'               " Distraction-free writing
 Plug 'mattn/emmet-vim'                 " HTML tag completor
 Plug 'editorconfig/editorconfig-vim'   " Editorconfig support
+Plug 'prettier/vim-prettier', {
+            \ 'do': 'npm install',
+            \ 'for': ['javascript', 'css', 'json', 'html'] }
 " Plug 'christoomey/vim-tmux-navigator' " Tmux
 Plug 'junegunn/vader.vim'
+Plug 'alampros/vim-styled-jsx'         " Styled-jsx
+Plug 'bakpakin/ats2.vim'               " ATS
 
 
 " ---- Haskell ----
 Plug 'pbrisbin/vim-syntax-shakespeare' " For Yesod templates
 Plug 'itchyny/vim-haskell-indent'
-" Plug 'meck/vim-brittany'
 
 call plug#end()
 
@@ -158,7 +163,8 @@ set keywordprg=:Man
 
 " Use man 3 as the K lookup if file is C or NASM
 autocmd FileType c,nasm,man setlocal keywordprg=:Man\ 3
-autocmd FileType c let &path = '.,/usr/include,/usr/lib/gcc/x86_64-redhat-linux/8/include/,/usr/local/include/'
+let &path = '.,/usr/include,/usr/lib/gcc/x86_64-redhat-linux/8/include/,/usr/local/include/'
+autocmd FileType ats let &path = '.,/usr/local/lib/ats2-postiats-0.3.13/'
 autocmd FileType nasm setlocal ts=8 sw=8
 autocmd Filetype tcl setlocal keywordprg=:Man\ n
 let ale_nasm_nasm_options = '-felf64'
@@ -210,6 +216,12 @@ autocmd BufNewFile,BufRead *.cassius set ft=cassius
 autocmd BufNewFile,BufRead *.bats    set ft=sh
 autocmd BufNewFile,BufRead *.bats    :ALEDisableBuffer
 autocmd BufNewFile,BufRead *.idr     set ft=idris
+autocmd BufNewFile,BufRead *.chs     set ft=haskell
+autocmd BufNewFile,BufRead *.pure    set ft=pure
+autocmd BufNewFile,BufRead *.[sdh]ats    set ft=ats
+autocmd BufNewFile,BufRead *.cats    set ft=c
+
+autocmd BufNewFile,BufRead *.hs set formatprg=stack\ exec\ stylish-haskell
 
 autocmd BufEnter *.md exe 'noremap <F5> :!google-chrome %:p<CR>'
 

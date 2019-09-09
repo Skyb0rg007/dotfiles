@@ -16,7 +16,7 @@ let g:ale_linters = {
     \ 'erlang': ['syntaxerl'],
     \ } 
 let g:ale_fixers = {
-    \ 'haskell': ['brittany', 'trim_whitespace']
+    \ 'haskell': ['stylish-haskell', 'trim_whitespace']
     \ }
 " No clangcheck because it doesn't include c++11 standard
 " No asm checker because it only uses gcc-inline assembler

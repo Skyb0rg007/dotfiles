@@ -1,11 +1,16 @@
 # vim: ft=tcl
 
 if {$tcl_interactive} {
-    package require tclreadline
-    namespace eval ::tclreadline {
-        proc prompt1 {} {
-            return "%% "
+    if {![catch {package require tclreadline}]} {
+        set historyfile [file join $::env(HOME) .cache tcl-history]
+        namespace eval ::tclreadline {
+            proc prompt1 {} {
+                return "%% "
+            }
+            proc prompt2 {} {
+                return " > "
+            }
         }
+        ::tclreadline::Loop $historyfile
     }
-    ::tclreadline::Loop 
 }

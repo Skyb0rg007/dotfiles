@@ -1,0 +1,5 @@
+#!/bin/bash
+
+executablename="/home/ssoss/.local/libexec/hsc2hs-ghcjs"
+
+exec "$executablename" ${1+"$@"}

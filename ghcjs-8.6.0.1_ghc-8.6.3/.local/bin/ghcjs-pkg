@@ -1,0 +1,7 @@
+#!/bin/bash
+
+executablename="/home/ssoss/.local/libexec/ghcjs-pkg"
+topdir="/home/ssoss/.ghcjs/x86_64-linux-8.6.0.1-8.6.3/ghcjs"
+
+PKGCONF="$topdir/package.conf.d"
+exec "$executablename" --global-package-db "$PKGCONF" "$@"

@@ -21,7 +21,7 @@ repository hackage.haskell.org
   -- key-threshold: 3
 
 -- default-user-config:
-require-sandbox: True
+require-sandbox: False
 -- ignore-sandbox: False
 -- ignore-expiry: False
 -- http-transport:

@@ -13,6 +13,8 @@
     source /home/ssoss/.config/bash/rebar3_completion.bash
 [[ -f /home/ssoss/.config/bash/cabal_completion.bash ]] && \
     source /home/ssoss/.config/bash/cabal_completion.bash
+command -v stack >/dev/null 2>&1 && \
+    eval "$(stack --bash-completion-script stack)"
 
 # Disable Ctrl+S
 stty -ixon
@@ -197,11 +199,12 @@ program () {
     local language="${1^}"
     [[ $language = "CS" ]] && language=15
     local directory="/home/ssoss/Documents/Programming"
-    local - # The shopt command is local to the function
+    local cdspell; cdspell=$(shopt -p cdspell)
     shopt -s cdspell
     cd "$directory/${language}" || \
         cd "$directory/School/${language}" || \
         echo "Directory \"${language}\" does not exist in Programming/ or School/"
+    eval "$cdspell"
 }
 _program_complete () {
     local langs; langs="$(ls ~/Documents/Programming/) CS" 
@@ -232,3 +235,4 @@ xsudo () {
 # ---- Tufts Commands ----
 # shellcheck disable=SC2034
 tuftscs="ssoss01@homework.cs.tufts.edu" # Simple shortcut
+
