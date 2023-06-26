@@ -1,0 +1,9 @@
+# vim: set ft=conf:
+# term screen-256color
+startup_message off
+vbell off
+maptimeout 5
+altscreen on
+attrcolor b ".I"
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E38;5;%dm'
+defbce "on"
