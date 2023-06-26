@@ -1,0 +1,7 @@
+[user]
+	email = skyler.soss@gmail.com
+	name = Skye Soss
+[core]
+	editor = vim
+[color]
+	ui = auto
