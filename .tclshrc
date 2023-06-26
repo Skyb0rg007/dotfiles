@@ -1,0 +1,21 @@
+# vim: set ft=tcl:
+
+if {$tcl_interactive} {
+    if {![catch {package require tclreadline}]} {
+        if {[info exists ::env(XDG_STATE_HOME)]
+                && [file pathtype $::env(XDG_STATE_HOME)] eq "absolute"} {
+            set histfile [file join $::env(XDG_STATE_HOME) tcl-history]
+        } else {
+            set histfile [file join $::env(HOME) .local state tcl-history]
+        }
+        namespace eval ::tclreadline {
+            proc prompt1 {} {
+                return "%% "
+            }
+            proc prompt2 {} {
+                return " > "
+            }
+        }
+        ::tclreadline::Loop $histfile
+    }
+}
