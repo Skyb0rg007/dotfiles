@@ -1,5 +1,5 @@
 " Hide vim's generated files in XDG directories
-" Not worrying about moving configuration files
+" Not worrying about moving configuration files for now
 if empty($XDG_CACHE_HOME) | let $XDG_CACHE_HOME = $HOME.'/.cache'       | endif
 if empty($XDG_STATE_HOME) | let $XDG_STATE_HOME = $HOME.'/.local/state' | endif
 set nocompatible
@@ -68,7 +68,7 @@ Plug 'elm-tooling/elm-vim'
 Plug 'iamcco/markdown-preview.nvim', {'do': 'cd app && npm install'}
 
 " Standard ML
-Plug 'jez/vim-better-sml'
+Plug 'Skyb0rg007/vim-better-sml'
 
 " Purescript
 Plug 'purescript-contrib/purescript-vim'
@@ -181,55 +181,50 @@ augroup END
 
 "--- Digraphs ---
 
-digraphs T+ 8868 " ⊤
-
-digraphs Si 8305 " ⁱ
-digraphs si 7522 " ᵢ
-digraphs Sk 7503 " ᵏ
-digraphs sk 8342 " ₖ
-digraphs Sn 8319 " ⁿ
-digraphs sn 8345 " ₙ
-digraphs Sp 7510 " ᵖ
-digraphs sp 8346 " ₚ
-digraphs Sr 0691 " ʳ
-digraphs sr 7523 " ᵣ
-digraphs SR 7487 " ᴿ
-digraphs ST 7488 " ᵀ
-digraphs St 7511 " ᵗ
-digraphs st 8348 " ₜ
-digraphs Sx 0739 " ˣ
-digraphs sx 8339 " ₓ
-digraphs sl 8343 " ₗ
-digraphs Sd 7496 " ᵈ
-digraphs SH 7476 " ᴴ
-
-digraphs !! 0449 " ǁ
-digraphs \|< 10216 " ⟨
-digraphs \|> 10217 " ⟩
-digraphs +o 8853 " ⊕
-digraphs -o 8854 " ⊖
-digraphs xo 8855 " ⊗
-
-digraphs [_ 8849 " ⊑
-digraphs ]_ 8850 " ⊑
-digraphs [U 8851 " ⊓
-digraphs ]U 8852 " ⊔
-
+digraphs !!  0449 " ǁ
+digraphs Sr  0691 " ʳ
+digraphs Sx  0739 " ˣ
+digraphs SH  7476 " ᴴ
+digraphs SR  7487 " ᴿ
+digraphs ST  7488 " ᵀ
+digraphs Sd  7496 " ᵈ
+digraphs Sk  7503 " ᵏ
+digraphs Sp  7510 " ᵖ
+digraphs St  7511 " ᵗ
+digraphs si  7522 " ᵢ
+digraphs sr  7523 " ᵣ
+digraphs Si  8305 " ⁱ
+digraphs Sn  8319 " ⁿ
+digraphs sx  8339 " ₓ
+digraphs sk  8342 " ₖ
+digraphs sl  8343 " ₗ
+digraphs sn  8345 " ₙ
+digraphs sp  8346 " ₚ
+digraphs st  8348 " ₜ
 digraphs \|C 8450 " ℂ
 digraphs \|N 8469 " ℕ
 digraphs \|R 8477 " ℝ
 digraphs \|Z 8484 " ℤ
-digraphs /D 8517 " ⅅ
-digraphs /d 8518 " ⅆ
-digraphs /e 8519 " ⅇ
-digraphs /i 8520 " ⅈ
-digraphs /j 8521 " ⅉ
-digraphs 17 8528 " ⅐
-digraphs 19 8529 " ⅑
-digraphs 10 8530 " ⅒
+digraphs /D  8517 " ⅅ
+digraphs /d  8518 " ⅆ
+digraphs /e  8519 " ⅇ
+digraphs /i  8520 " ⅈ
+digraphs /j  8521 " ⅉ
+digraphs 17  8528 " ⅐
+digraphs 19  8529 " ⅑
+digraphs 10  8530 " ⅒
+digraphs [_  8849 " ⊑
+digraphs ]_  8850 " ⊑
+digraphs [U  8851 " ⊓
+digraphs ]U  8852 " ⊔
+digraphs +o  8853 " ⊕
+digraphs -o  8854 " ⊖
+digraphs xo  8855 " ⊗
 digraphs \|- 8866 " ⊢
-
-digraphs ~> 10547 " ⤳
+digraphs T+  8868 " ⊤
+digraphs \|< 10216 " ⟨
+digraphs \|> 10217 " ⟩
+digraphs ~>  10547 " ⤳
 
 "--- Plugin settings ---
 
@@ -369,5 +364,4 @@ endfunction
 " VimTex
 let g:vimtex_view_general_viewer = 'okular'
 let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
-
 

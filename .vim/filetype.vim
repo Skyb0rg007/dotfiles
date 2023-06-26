@@ -1,0 +1,9 @@
+if exists("did_load_filetypes")
+    finish
+endif
+augroup filetypedetect
+    autocmd! BufRead,BufNewFile *.sml,*.sig,*.fun setfiletype sml
+    autocmd! BufRead,BufNewFile *.scm,*.sld       setfiletype scheme
+    autocmd! BufRead,BufNewFile *.bqn             setfiletype bqn
+    autocmd! BufRead,BufNewFile *.agda            setfiletype agda
+augroup END
