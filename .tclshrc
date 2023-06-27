@@ -2,6 +2,8 @@
 
 if {$tcl_interactive} {
     if {![catch {package require tclreadline}]} {
+        # Use $XDG_STATE_HOME/tcl-history,
+        # falling back to ~/.local/state/tcl-history
         if {[info exists ::env(XDG_STATE_HOME)]
                 && [file pathtype $::env(XDG_STATE_HOME)] eq "absolute"} {
             set histfile [file join $::env(XDG_STATE_HOME) tcl-history]

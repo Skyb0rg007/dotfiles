@@ -240,7 +240,6 @@ let g:ale_echo_msg_format = '[%linter%] %s'
 let g:ale_linters = {
     \   'c': ['gcc'],
     \   'cpp': ['gcc'],
-    \   'elm': ['elm_ls'],
     \   'javascript': ['eslint'],
     \   'haskell': ['stack_build']
     \ }
@@ -248,11 +247,6 @@ let g:ale_fixers = {
     \   'haskell': ['trim_whitespace'],
     \ }
 let g:ale_sign_column_always = 1
-let g:ale_elm_ls_use_global = 1
-let g:ale_elm_ls_executable = "/home/ssoss/.local/share/npm/bin/elm-language-server"
-let g:ale_elm_ls_elm_path = "/home/ssoss/.local/share/npm/bin/elm"
-let g:ale_elm_ls_elm_format_path = "/home/ssoss/.local/share/npm/bin/elm-format"
-let g:ale_elm_ls_elm_test_path = "/home/ssoss/.local/share/npm/bin/elm-test"
 
 " Lightline
 set noshowmode

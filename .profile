@@ -95,6 +95,8 @@ path_append  PATH "/mnt/c/Program Files/Mozilla Firefox"
 export AGDA_DIR="$XDG_CONFIG_HOME/agda"
 # bash
 export HISTFILE="$XDG_STATE_HOME/bash/history"
+# bc
+export BC_ENV_ARGS="--mathlib $XDG_CONFIG_HOME/bcrc"
 # cabal
 export CABAL_DIR="$XDG_DATA_HOME/cabal"
 # cargo
