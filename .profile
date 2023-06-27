@@ -80,7 +80,7 @@ path_append() {
     esac
 }
 
-# PATH,MANPATH,INFOPATH
+## PATH,MANPATH,INFOPATH
 path_prepend PATH "$HOME/.local/bin"
 path_append  PATH "$XDG_DATA_HOME/go/bin"
 path_append  PATH "$XDG_DATA_HOME/cabal/bin"
@@ -90,8 +90,14 @@ path_append  PATH "$XDG_DATA_HOME/elan/bin"
 path_append  PATH "/mnt/c/Program Files/Mozilla Firefox"
 
 # These utilities require sourcing their own scripts
-. /home/ssoss/.config/nvm/nvm.sh
-. /home/ssoss/.local/share/opam/opam-init/variables.sh
+if [ -f "$XDG_CONFIG_HOME/nvm/nvm.sh" ]; then
+    # shellcheck source=.config/nvm/nvm.sh
+    . "$XDG_CONFIG_HOME/nvm/nvm.sh"
+fi
+if [ -f "$XDG_DATA_HOME/opam/opam-init/variables.sh" ]; then
+    # shellcheck source=.local/share/opam/opam-init/variables.sh
+    . "$XDG_DATA_HOME/opam/opam-init/variables.sh"
+fi
 
 # XDG compliance (https://wiki.archlinux.org/title/XDG_Base_Directory)
 # agda

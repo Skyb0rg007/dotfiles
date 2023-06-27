@@ -98,12 +98,16 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -C'
 
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
 # XXX: WSL2 doesn't support this
-# alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-# Alias definitions.
+alert () {
+    local icon=terminal body
+    # shellcheck disable=SC2181
+    if [[ $? != 0 ]]; then
+        icon=error
+    fi
+    body="$(history | tail -n1 | sed -e 's/^\s*[0-9]\+\s*//;s/[;&|]\+\s*alert$//')"
+    notify-send --urgency=low --icon="$icon" "$body"
+}
 
 mkcd () { 
     mkdir "$1" && cd "$1" || return
@@ -114,11 +118,6 @@ update-all () {
     sudo apt update --assume-yes
     sudo apt upgrade --assume-yes
     sudo apt autoremove --assume-yes
-    # stack update
-    # opam update
-    # rustup update stable
-    # elan update stable
-    # rakubrew self-upgrade
 }
 
 # enable programmable completion features
@@ -131,13 +130,34 @@ if ! shopt -oq posix; then
 fi
 
 # other shell completions
-. /home/ssoss/.config/nvm/bash_completion
-. /home/ssoss/.local/share/opam/opam-init/complete.sh
-. /home/ssoss/.local/share/opam/opam-init/env_hook.sh
-eval "$(elan completions bash)"
-eval "$(pip completion --bash)"
-eval "$(pip3 completion --bash)"
-eval "$(rustup completions bash)"
-eval "$(stack --bash-completion-script "$(command -v stack)")"
-eval "$(rakubrew init Bash)"
+if [[ -f $XDG_CONFIG_HOME/nvm/bash_completion ]]; then
+    # shellcheck source=.config/nvm/bash_completion
+    source "$XDG_CONFIG_HOME/nvm/bash_completion"
+fi
+if [[ -f $XDG_DATA_HOME/opam/opam-init/complete.sh ]]; then
+    # shellcheck source=.local/share/opam/opam-init/complete.sh
+    source "$XDG_DATA_HOME/opam/opam-init/complete.sh"
+fi
+if [[ -f $XDG_DATA_HOME/opam/opam-init/env_hook.sh ]]; then
+    # shellcheck source=.local/share/opam/opam-init/env_hook.sh
+    source "$XDG_DATA_HOME/opam/opam-init/env_hook.sh"
+fi
+if command -v elan >/dev/null; then
+    eval "$(elan completions bash)"
+fi
+if command -v pip >/dev/null; then
+    eval "$(pip completion --bash)"
+fi
+if command -v pip3 >/dev/null; then
+    eval "$(pip3 completion --bash)"
+fi
+if command -v rustup >/dev/null; then
+    eval "$(rustup completions bash)"
+fi
+if command -v stack >/dev/null; then
+    eval "$(stack --bash-completion-script "$(command -v stack)")"
+fi
+if command -v rakubrew >/dev/null; then
+    eval "$(rakubrew init Bash)"
+fi
 
