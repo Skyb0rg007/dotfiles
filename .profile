@@ -1,3 +1,5 @@
+# ~/.profile
+# Sourced by POSIX sh and Bash, write shell-agnostic configuration here
 
 # user::rwx, group::r-x, other::r-x
 umask 022
@@ -7,6 +9,7 @@ local_ip="$(grep nameserver /etc/resolv.conf | awk '{ print $2 }')"
 export DISPLAY="$local_ip:0"
 
 export EDITOR=vim
+export VISUAL=vim
 
 # XDG Base Directory Specicication (https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
 # XDG_DATA_HOME:
