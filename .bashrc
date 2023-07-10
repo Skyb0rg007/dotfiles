@@ -120,6 +120,18 @@ update-all () {
     sudo apt autoremove --assume-yes
 }
 
+nuke-stack () {
+    if [[ ! -d $STACK_ROOT ]]; then
+        return 1
+    fi
+    rm -rf "$STACK_ROOT/.stack-work"
+    rm -rf "$STACK_ROOT/pantry"
+    rm -rf "$STACK_ROOT/programs"
+    rm -rf "$STACK_ROOT/templates"
+    rm -f "$STACK_ROOT/stack.sqlite3"
+    rm -f "$STACK_ROOT/stack.sqlite3.pantry-write-lock"
+}
+
 # enable programmable completion features
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
