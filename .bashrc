@@ -141,6 +141,18 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# warn me if completions are not up-to-date
+for f in "$XDG_DATA_HOME/bash-completion/completions"/*; do
+    if cmd="$(command -v "$(basename "$f")")"; then
+        if [[ $f -ot $cmd ]]; then
+            echo >&2 "completion for '$cmd' is older than the binary"
+        fi
+    else
+        echo >&2 "completion for nonexistant binary '$f'"
+    fi
+done
+unset f cmd
+
 # other shell completions
 if [[ -f $XDG_CONFIG_HOME/nvm/bash_completion ]]; then
     # shellcheck source=.config/nvm/bash_completion

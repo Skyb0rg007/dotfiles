@@ -54,6 +54,7 @@ for var in XDG_CONFIG_HOME XDG_CACHE_HOME XDG_DATA_HOME XDG_STATE_HOME; do
         echo >&2 "$var ($val) does not exist!"
     fi
 done
+unset var val
 if [ ! -d "$XDG_RUNTIME_DIR" ]; then
     echo >&2 "XDG_RUNTIME_DIR ($XDG_RUNTIME_DIR) does not exist!"
 elif [ "$(stat -c "%U" "$XDG_RUNTIME_DIR")" != "$USER" ]; then
