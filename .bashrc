@@ -154,22 +154,3 @@ if [[ -f $XDG_DATA_HOME/opam/opam-init/env_hook.sh ]]; then
     # shellcheck source=.local/share/opam/opam-init/env_hook.sh
     source "$XDG_DATA_HOME/opam/opam-init/env_hook.sh"
 fi
-if command -v elan >/dev/null; then
-    eval "$(elan completions bash)"
-fi
-if command -v pip >/dev/null; then
-    eval "$(pip completion --bash)"
-fi
-if command -v pip3 >/dev/null; then
-    eval "$(pip3 completion --bash)"
-fi
-if command -v rustup >/dev/null; then
-    eval "$(rustup completions bash)"
-fi
-if command -v stack >/dev/null; then
-    eval "$(stack --bash-completion-script "$(command -v stack)")"
-fi
-if command -v rakubrew >/dev/null; then
-    eval "$(rakubrew init Bash)"
-fi
-

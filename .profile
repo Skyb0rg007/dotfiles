@@ -87,6 +87,7 @@ path_append  PATH "$XDG_DATA_HOME/cabal/bin"
 path_append  PATH "$XDG_DATA_HOME/cargo/bin"
 path_append  PATH "$XDG_DATA_HOME/npm/bin"
 path_append  PATH "$XDG_DATA_HOME/elan/bin"
+path_append  PATH "$XDG_DATA_HOME/luarocks/bin"
 path_append  PATH "/mnt/c/Program Files/Mozilla Firefox"
 
 # These utilities require sourcing their own scripts
@@ -138,6 +139,9 @@ export LEIN_HOME="$XDG_DATA_HOME/lein"
 export LESS="--QUIET --RAW-CONTROL-CHARS"
 export LESSHISTFILE="$XDG_STATE_HOME/less/history"
 export LESSKEY="$XDG_CONFIG_HOME/less/lesskey"
+# luarocks
+export LUA_PATH=";;$XDG_DATA_HOME/luarocks/share/lua/5.4/?.lua;$XDG_DATA_HOME/luarocks/share/lua/5.4/?/init.lua"
+export LUA_CPATH=";;$XDG_DATA_HOME/luarocks/lib/lua/5.4/?.so"
 # node
 export NODE_PATH="$XDG_DATA_HOME/npm/lib/node_modules"
 export NODE_REPL_HISTORY="$XDG_STATE_HOME/node/history"

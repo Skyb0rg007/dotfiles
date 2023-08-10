@@ -32,7 +32,7 @@ Plug 'tpope/vim-dadbod'          " Database stuff
 Plug 'tpope/vim-fugitive'        " Git stuff
 Plug 'ctrlpvim/ctrlp.vim'        " Fuzzy search
 
-" LISP stuff
+" LISP
 Plug 'guns/vim-sexp'             " S-Expression handling
 Plug 'luochen1990/rainbow'       " Rainbow parentheses
 Plug 'tpope/vim-sexp-mappings-for-regular-people' " Sane S-Expression mappings
@@ -129,6 +129,7 @@ set exrc secure " Allow for a local .vimrc to override these settings
 set splitright " Split below and to the right
 set t_Co=256 " Number of colors
 set visualbell " Disable alarm
+set path=.,/usr/include/,/usr/include/x86_64-linux-gnu/,,
 
 " Folds
 set foldmethod=indent
