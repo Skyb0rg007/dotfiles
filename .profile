@@ -51,12 +51,12 @@ for var in XDG_CONFIG_HOME XDG_CACHE_HOME XDG_DATA_HOME XDG_STATE_HOME; do
     eval val="\$$var"
     # shellcheck disable=2154 # Doing indirect expansion
     if [ ! -d "$val" ]; then
-        echo >&2 "$var ($val) does not exist!"
+        echo >&2 "$var ($val) does not exist"
     fi
 done
 unset var val
 if [ ! -d "$XDG_RUNTIME_DIR" ]; then
-    echo >&2 "XDG_RUNTIME_DIR ($XDG_RUNTIME_DIR) does not exist!"
+    echo >&2 "XDG_RUNTIME_DIR ($XDG_RUNTIME_DIR) does not exist"
 elif [ "$(stat -c "%U" "$XDG_RUNTIME_DIR")" != "$USER" ]; then
     echo >&2 "XDG_RUNTIME_DIR ($XDG_RUNTIME_DIR) is not owned by current user ($USER)"
 elif [ "$(stat -c "%a" "$XDG_RUNTIME_DIR")" != 700 ]; then
@@ -83,12 +83,12 @@ path_append() {
 
 ## PATH,MANPATH,INFOPATH
 path_prepend PATH "$HOME/.local/bin"
-path_append  PATH "$XDG_DATA_HOME/go/bin"
 path_append  PATH "$XDG_DATA_HOME/cabal/bin"
 path_append  PATH "$XDG_DATA_HOME/cargo/bin"
-path_append  PATH "$XDG_DATA_HOME/npm/bin"
 path_append  PATH "$XDG_DATA_HOME/elan/bin"
+path_append  PATH "$XDG_DATA_HOME/go/bin"
 path_append  PATH "$XDG_DATA_HOME/luarocks/bin"
+path_append  PATH "$XDG_DATA_HOME/npm/bin"
 path_append  PATH "/mnt/c/Program Files/Mozilla Firefox"
 
 # These utilities require sourcing their own scripts
@@ -140,9 +140,9 @@ export LEIN_HOME="$XDG_DATA_HOME/lein"
 export LESS="--QUIET --RAW-CONTROL-CHARS"
 export LESSHISTFILE="$XDG_STATE_HOME/less/history"
 export LESSKEY="$XDG_CONFIG_HOME/less/lesskey"
-# luarocks
-export LUA_PATH=";;$XDG_DATA_HOME/luarocks/share/lua/5.4/?.lua;$XDG_DATA_HOME/luarocks/share/lua/5.4/?/init.lua"
-export LUA_CPATH=";;$XDG_DATA_HOME/luarocks/lib/lua/5.4/?.so"
+# lua / luarocks
+export LUA_PATH_5_4=";;$XDG_DATA_HOME/luarocks/share/lua/5.4/?.lua;$XDG_DATA_HOME/luarocks/share/lua/5.4/?/init.lua"
+export LUA_CPATH_5_4=";;$XDG_DATA_HOME/luarocks/lib/lua/5.4/?.so"
 # node
 export NODE_PATH="$XDG_DATA_HOME/npm/lib/node_modules"
 export NODE_REPL_HISTORY="$XDG_STATE_HOME/node/history"
