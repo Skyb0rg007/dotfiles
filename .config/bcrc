@@ -1,0 +1,47 @@
+# vim: set ft=bc:
+
+# π = 4 arctan(1)
+define pi() {
+    return 4 * a(1)
+}
+
+# arcsin(θ) = arctan(θ/√(1-θ²))
+define as(t) {
+    if (t == 1 || t == -1)
+        return t * pi() / 2
+    return a(t / sqrt(1 - t^2))
+}
+
+# arccos(θ) = arctan(√(1 - θ²)/θ)
+define ac(t) {
+    if (t == 0)
+        return pi()/2
+    return a(sqrt(1 - t^2)/t)
+}
+
+# arccot(θ) = π/2 - arctan(θ)
+define acot(t) {
+    return pi()/2 - a(t)
+}
+
+# Returns integer part of a number
+define int(n) {
+    auto oldscale
+    oldscale = scale
+    scale = 0
+    n /= 1
+    scale = oldscale
+    return n
+}
+
+# a^b = exp(b * ln(a))
+define pow(a, b) {
+    auto bint
+    bint = int(b)
+    if (b == bint) {
+        return a^bint
+    } else {
+        return e(b * l(a))
+    }
+}
+
