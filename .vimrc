@@ -287,12 +287,14 @@ let g:ale_linters = {
     \   'c': ['gcc'],
     \   'cpp': ['gcc'],
     \   'javascript': ['eslint'],
-    \   'haskell': ['stack_build']
+    \   'haskell': ['stack_build'],
+    \   'lua': ['luac', 'luacheck']
     \ }
 let g:ale_fixers = {
     \   'haskell': ['trim_whitespace'],
     \ }
 let g:ale_sign_column_always = 1
+let g:ale_lua_luac_executable = 'luac5.4'
 
 " Lightline
 set noshowmode
