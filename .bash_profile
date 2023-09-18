@@ -1,2 +1,4 @@
-source "/home/ssoss/.profile"
-source "/home/ssoss/.bashrc"
+# shellcheck source=.profile
+source "$HOME/.profile"
+# shellcheck source=.bashrc
+source "$HOME/.bashrc"
