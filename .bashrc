@@ -94,8 +94,8 @@ fi
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
+alias ll='ls --all --classify -l'
+alias la='ls --almost-all'
 alias l='ls -C'
 
 # XXX: WSL2 doesn't support this
@@ -124,12 +124,12 @@ nuke-stack () {
     if [[ ! -d $STACK_ROOT ]]; then
         return 1
     fi
-    rm -rf "$STACK_ROOT/.stack-work"
-    rm -rf "$STACK_ROOT/pantry"
-    rm -rf "$STACK_ROOT/programs"
-    rm -rf "$STACK_ROOT/templates"
-    rm -f "$STACK_ROOT/stack.sqlite3"
-    rm -f "$STACK_ROOT/stack.sqlite3.pantry-write-lock"
+    rm --force --recursive -- "$STACK_ROOT/.stack-work"
+    rm --force --recursive -- "$STACK_ROOT/pantry"
+    rm --force --recursive -- "$STACK_ROOT/programs"
+    rm --force --recursive -- "$STACK_ROOT/templates"
+    rm --force -- "$STACK_ROOT/stack.sqlite3"
+    rm --force -- "$STACK_ROOT/stack.sqlite3.pantry-write-lock"
 }
 
 # enable programmable completion features
