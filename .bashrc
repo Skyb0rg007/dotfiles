@@ -113,13 +113,16 @@ mkcd () {
     mkdir "$1" && cd "$1" || return
 }
 
+# Update the system
 update-all () {
+    # WSL2 bug workaround
     sudo hwclock --hctosys
     sudo apt update --assume-yes
     sudo apt upgrade --assume-yes
     sudo apt autoremove --assume-yes
 }
 
+# Remove all stack files, leaving configuration files intact
 nuke-stack () {
     if [[ ! -d $STACK_ROOT ]]; then
         return 1
@@ -141,11 +144,26 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# warn me if completions are not up-to-date
+# warn me if completions are unneeded or out-of-date
 for f in "$XDG_DATA_HOME/bash-completion/completions"/*; do
     if cmd="$(command -v "$(basename "$f")")"; then
         if [[ $f -ot $cmd ]]; then
-            echo >&2 "completion for '$cmd' is older than the binary"
+            # Some commands' completions can be updated automatically
+            case "$f" in
+                */stack|*/ghcup)
+                    command "$cmd" --bash-completion-script "$cmd" > "$f"
+                    ;;
+                */elan|*/rustup)
+                    command "$cmd" completions bash > "$f"
+                    ;;
+                */luarocks)
+                    command "$cmd" completion bash > "$f"
+                    ;;
+                */pip|*/pip3)
+                    command "$cmd" completion --bash > "$f"
+                    ;;
+                *) echo >&2 "completion for '$cmd' is older than the binary"
+            esac
         fi
     else
         echo >&2 "completion for nonexistant binary '$f'"
@@ -165,4 +183,8 @@ fi
 if [[ -f $XDG_DATA_HOME/opam/opam-init/env_hook.sh ]]; then
     # shellcheck source=.local/share/opam/opam-init/env_hook.sh
     source "$XDG_DATA_HOME/opam/opam-init/env_hook.sh"
+fi
+if [[ -f "/home/ssoss/.local/share/ghcup/env" ]]; then
+    # shellcheck source=.local/share/ghcup/env
+    source "$XDG_DATA_HOME/ghcup/env"
 fi

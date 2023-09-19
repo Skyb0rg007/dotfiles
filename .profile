@@ -57,11 +57,11 @@ done
 unset var val
 if [ ! -d "$XDG_RUNTIME_DIR" ]; then
     echo >&2 "XDG_RUNTIME_DIR ($XDG_RUNTIME_DIR) does not exist"
-elif [ "$(stat -c "%U" "$XDG_RUNTIME_DIR")" != "$USER" ]; then
+elif [ "$(stat --format="%U" "$XDG_RUNTIME_DIR")" != "$USER" ]; then
     echo >&2 "XDG_RUNTIME_DIR ($XDG_RUNTIME_DIR) is not owned by current user ($USER)"
-elif [ "$(stat -c "%a" "$XDG_RUNTIME_DIR")" != 700 ]; then
+elif [ "$(stat --format="%a" "$XDG_RUNTIME_DIR")" != 700 ]; then
     echo >&2 "XDG_RUNTIME_DIR ($XDG_RUNTIME_DIR) does not have the right access rights"
-elif [ "$(df -T "$XDG_RUNTIME_DIR" | tail -n +2 | awk '{ print $2 }')" != tmpfs ]; then
+elif [ "$(df -T "$XDG_RUNTIME_DIR" | tail --lines=+2 | awk '{ print $2 }')" != tmpfs ]; then
     echo >&2 "XDG_RUNTIME_DIR ($XDG_RUNTIME_DIR) is not mounted on a tmpfs file system"
 fi
 
@@ -119,6 +119,8 @@ export CCACHE_DIR="$XDG_CACHE_HOME/ccache"
 export ELM_HOME="$XDG_CONFIG_HOME/elm"
 # gforth
 export GFORTHHIST="$XDG_STATE_HOME/gforth/history"
+# ghcup
+export GHCUP_USE_XDG_DIRS=1
 # GnuPG
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 # golang
