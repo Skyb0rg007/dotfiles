@@ -89,6 +89,7 @@ path_append  PATH "$XDG_DATA_HOME/elan/bin"
 path_append  PATH "$XDG_DATA_HOME/go/bin"
 path_append  PATH "$XDG_DATA_HOME/luarocks/bin"
 path_append  PATH "$XDG_DATA_HOME/npm/bin"
+path_append  PATH "$XDG_CONFIG_HOME/emacs/bin"
 path_append  PATH "/mnt/c/Program Files/Mozilla Firefox"
 
 # These utilities require sourcing their own scripts

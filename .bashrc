@@ -184,7 +184,7 @@ if [[ -f $XDG_DATA_HOME/opam/opam-init/env_hook.sh ]]; then
     # shellcheck source=.local/share/opam/opam-init/env_hook.sh
     source "$XDG_DATA_HOME/opam/opam-init/env_hook.sh"
 fi
-if [[ -f "/home/ssoss/.local/share/ghcup/env" ]]; then
+if [[ -f "$XDG_DATA_HOME/ghcup/env" ]]; then
     # shellcheck source=.local/share/ghcup/env
     source "$XDG_DATA_HOME/ghcup/env"
 fi
