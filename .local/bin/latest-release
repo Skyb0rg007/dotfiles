@@ -25,7 +25,9 @@ commands=(
 
 # Generic method of extracting the version number from query output
 clean-version () {
-    sed -e 's/^[^0-9]\+//' -e 's/[_]/./g' -e 's:/::g'
+    sed --expression='s/^[^0-9]\+//' \
+        --expression='s/[_]/./g' \
+        --expression='s:/::g'
 }
 
 # Print the current version on apt-get
@@ -78,7 +80,7 @@ query-ftp () {
     declare name="$1" url="$2"
     printf 'Latest FTP release:\n%s ' "$name"
     curl --silent "$url" \
-        | tar -ztO 2>&1 \
+        | tar --gzip --list \
         | head --lines=1 \
         | clean-version
 }
