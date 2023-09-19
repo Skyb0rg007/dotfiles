@@ -4,8 +4,8 @@ stowdir=/usr/local/stow
 
 curlopts=(
     --silent
-    -H "Accept: application/json"
-    -H "X-GitHub-Api-Version: 2022-11-28"
+    --header "Accept: application/json"
+    --header "X-GitHub-Api-Version: 2022-11-28"
 )
 
 apiurl=https://api.github.com/repos
@@ -29,14 +29,14 @@ clean-version () {
 }
 
 # Print the current version on apt-get
-find-apt-version () {
+query-apt-version () {
     declare name="$1"
     printf 'Latest apt package version:\n%s ' "$name"
     apt show "$name" 2>/dev/null | grep --max-count=1 Version | clean-version
 }
 
-# Name to use for listing stowed packages
-find-with () {
+# Print the matching files from stow directory
+query-stow-versions () {
     declare name="$1"
     echo "Available in stow directory:"
     find "$stowdir" \
@@ -105,48 +105,48 @@ case "${1,,}" in
         echo "complete -W '${commands[*]}' latest-release"
         ;;
     mlkit)
-        find-with mlkit
+        query-stow-versions mlkit
         query-release-tagname mlkit melsman/mlkit
         ;;
     llvm)
-        find-with llvm
+        query-stow-versions llvm
         query-release-tagname llvm llvm/llvm-project
         ;;
     cmake)
-        find-apt-version cmake
-        find-with cmake
+        query-apt-version cmake
+        query-stow-versions cmake
         query-release-tagname cmake KitWare/CMake
         ;;
     chezscheme)
-        find-with chezscheme
+        query-stow-versions chezscheme
         query-release-tagname chezscheme cisco/ChezScheme
         ;;
     koka)
-        find-with koka
+        query-stow-versions koka
         query-release-tagname koka koka-lang/koka
         ;;
     mercury)
-        find-with mercury
+        query-stow-versions mercury
         query-latest-tagname mercury Mercury-Language/mercury
         ;;
     smlnj)
-        find-apt-version smlnj
-        find-with smlnj
+        query-apt-version smlnj
+        query-stow-versions smlnj
         query-file-content smlnj smlnj/legacy config/version
         ;;
     luarocks)
-        find-apt-version luarocks
-        find-with luarocks
+        query-apt-version luarocks
+        query-stow-versions luarocks
         query-latest-tagname luarocks luarocks/luarocks
         ;;
     swipl)
-        find-apt-version swi-prolog
-        find-with swipl
+        query-apt-version swi-prolog
+        query-stow-versions swipl
         query-file-content swipl SWI-Prolog/swipl-devel VERSION
         ;;
     autoconf)
-        find-apt-version autoconf
-        find-with autoconf
+        query-apt-version autoconf
+        query-stow-versions autoconf
         query-ftp autoconf https://ftp.gnu.org/gnu/autoconf/autoconf-latest.tar.gz
         ;;
     *)
