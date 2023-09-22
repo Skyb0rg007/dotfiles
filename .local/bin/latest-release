@@ -33,7 +33,7 @@ clean-version () {
 # Print the current version on apt-get
 query-apt-version () {
     declare name="$1"
-    printf 'Latest apt package version:\n%s ' "$name"
+    printf 'Apt package version:\n%s ' "$name"
     apt show "$name" 2>/dev/null | grep --max-count=1 Version | clean-version
 }
 
@@ -149,7 +149,8 @@ case "${1,,}" in
     autoconf)
         query-apt-version autoconf
         query-stow-versions autoconf
-        query-ftp autoconf https://ftp.gnu.org/gnu/autoconf/autoconf-latest.tar.gz
+        # query-ftp autoconf https://ftp.gnu.org/gnu/autoconf/autoconf-latest.tar.gz
+        query-ftp autoconf https://ftp.wayne.edu/gnu/autoconf/autoconf-latest.tar.gz
         ;;
     *)
         echo >&2 "Invalid argument $1"

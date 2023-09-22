@@ -128,19 +128,19 @@ haddock
   -- contents-location:
 
 install-dirs user
-  -- prefix: /home/ssoss/.local/share/cabal
-  -- bindir: $prefix/bin
-  -- libdir: $prefix/lib
-  -- libsubdir: $abi/$libname
-  -- dynlibdir: $libdir/$abi
-  -- libexecdir: $prefix/libexec
-  -- libexecsubdir: $abi/$pkgid
-  -- datadir: $prefix/share
-  -- datasubdir: $abi/$pkgid
-  -- docdir: $datadir/doc/$abi/$pkgid
-  -- htmldir: $docdir/html
-  -- haddockdir: $htmldir
-  -- sysconfdir: $prefix/etc
+  prefix: /home/ssoss/.local/share/cabal
+  bindir: $prefix/bin
+  libdir: $prefix/lib
+  libsubdir: $abi/$libname
+  dynlibdir: $libdir/$abi
+  libexecdir: $prefix/libexec
+  libexecsubdir: $abi/$pkgid
+  datadir: $prefix/share
+  datasubdir: $abi/$pkgid
+  docdir: $datadir/doc/$abi/$pkgid
+  htmldir: $docdir/html
+  haddockdir: $htmldir
+  sysconfdir: $prefix/etc
 
 install-dirs global
   -- prefix: /usr/local
