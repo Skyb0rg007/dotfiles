@@ -162,6 +162,9 @@ for f in "$XDG_DATA_HOME/bash-completion/completions"/*; do
                 */pip|*/pip3)
                     command "$cmd" completion --bash > "$f"
                     ;;
+                */latest-release)
+                    command "$cmd" --completion > "$f"
+                    ;;
                 *) echo >&2 "completion for '$cmd' is older than the binary"
             esac
         fi
