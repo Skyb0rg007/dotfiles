@@ -216,6 +216,7 @@ digraphs /j  8521 " ⅉ
 digraphs 17  8528 " ⅐
 digraphs 19  8529 " ⅑
 digraphs 10  8530 " ⅒
+digraphs !3  8802 " ≢
 digraphs [_  8849 " ⊑
 digraphs ]_  8850 " ⊑
 digraphs [U  8851 " ⊓
@@ -225,6 +226,8 @@ digraphs -o  8854 " ⊖
 digraphs xo  8855 " ⊗
 digraphs \|- 8866 " ⊢
 digraphs T+  8868 " ⊤
+digraphs <.  8918 " ⋖
+digraphs .>  8919 " ⋗
 digraphs \|< 10216 " ⟨
 digraphs \|> 10217 " ⟩
 digraphs ~>  10547 " ⤳
