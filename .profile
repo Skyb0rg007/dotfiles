@@ -5,9 +5,7 @@
 umask 022
 
 # Setup $DISPLAY for the X server
-local_ip="$(grep nameserver /etc/resolv.conf | awk '{ print $2 }')"
-export DISPLAY="$local_ip:0"
-
+export DISPLAY=":0.0"
 export EDITOR=vim
 export VISUAL=vim
 
@@ -91,6 +89,8 @@ path_append  PATH "$XDG_DATA_HOME/luarocks/bin"
 path_append  PATH "$XDG_DATA_HOME/npm/bin"
 path_append  PATH "$XDG_CONFIG_HOME/emacs/bin"
 path_append  PATH "/mnt/c/Program Files/Mozilla Firefox"
+path_append  PATH "/opt/gradle/gradle-8.3/bin"
+path_append  PATH "/opt/ghidra/ghidra-10.3.3/bin"
 
 # These utilities require sourcing their own scripts
 if [ -f "$XDG_CONFIG_HOME/nvm/nvm.sh" ]; then
@@ -122,6 +122,8 @@ export ELM_HOME="$XDG_CONFIG_HOME/elm"
 export GFORTHHIST="$XDG_STATE_HOME/gforth/history"
 # ghcup
 export GHCUP_USE_XDG_DIRS=1
+# gradle
+export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 # GnuPG
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 # golang
