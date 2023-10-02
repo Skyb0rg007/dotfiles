@@ -191,3 +191,8 @@ if [[ -f "$XDG_DATA_HOME/ghcup/env" ]]; then
     # shellcheck source=.local/share/ghcup/env
     source "$XDG_DATA_HOME/ghcup/env"
 fi
+if [[ -f "$SDKMAN_DIR/bin/sdkman-init.sh" ]]; then
+    # shellcheck source=.local/share/sdkman/bin/sdkman-init.sh
+    source "$SDKMAN_DIR/bin/sdkman-init.sh"
+fi
+

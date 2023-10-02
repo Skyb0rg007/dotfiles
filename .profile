@@ -175,6 +175,8 @@ export RLWRAP_HOME="$XDG_STATE_HOME/rlwrap"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 # screen
 export SCREENRC="$XDG_CONFIG_HOME/screen/config"
+# sdkman
+export SDKMAN_DIR="$XDG_DATA_HOME/sdkman"
 # sqlite3
 export SQLITE_HISTORY="$XDG_STATE_HOME/sqlite/history"
 # stack
