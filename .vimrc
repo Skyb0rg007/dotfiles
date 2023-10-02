@@ -93,10 +93,6 @@ let g:neodark#background = '#202020'
 set background=dark
 colorscheme neodark
 
-" Cursor is a line in insert mode and a block in normal mode
-let &t_SI = "\e[6 q"
-let &t_EI = "\e[2 q"
-
 " General settings
 set autoindent " Copy indent from current line when starting a new line
 set autoread " Re-read a file when a change occurs
@@ -136,6 +132,10 @@ set foldmethod=indent
 set foldnestmax=5
 set foldlevelstart=99
 set foldcolumn=0
+
+" Cursor is a line in insert mode and a block in normal mode
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
 
 " Show the cursor line in normal mode
 set cursorline
@@ -205,6 +205,7 @@ digraphs st  8348 " ₜ
 digraphs \|C 8450 " ℂ
 digraphs \|H 8461 " ℍ
 digraphs \|N 8469 " ℕ
+digraphs \|P 8473 " ℙ
 digraphs \|Q 8474 " ℚ
 digraphs \|R 8477 " ℝ
 digraphs \|Z 8484 " ℤ
@@ -231,6 +232,7 @@ digraphs .>  8919 " ⋗
 digraphs \|< 10216 " ⟨
 digraphs \|> 10217 " ⟩
 digraphs ~>  10547 " ⤳
+digraphs Fg  120100 " 𝔤
 digraphs \|A 120120 " 𝔸
 digraphs \|B 120121 " 𝔹
 digraphs \|D 120123 " 𝔻
@@ -248,6 +250,7 @@ digraphs \|W 120142 " 𝕎
 digraphs \|X 120143 " 𝕏
 digraphs \|a 120146 " 𝕒
 digraphs \|b 120147 " 𝕓
+digraphs \|c 120148 " 𝕔
 digraphs \|d 120149 " 𝕕
 digraphs \|e 120150 " 𝕖
 digraphs \|f 120151 " 𝕗
@@ -260,10 +263,17 @@ digraphs \|l 120157 " 𝕝
 digraphs \|m 120158 " 𝕞
 digraphs \|n 120159 " 𝕟
 digraphs \|o 120160 " 𝕠
+digraphs \|p 120161 " 𝕡
+digraphs \|q 120162 " 𝕢
 digraphs \|r 120163 " 𝕣
 digraphs \|s 120164 " 𝕤
+digraphs \|t 120165 " 𝕥
+digraphs \|u 120166 " 𝕦
+digraphs \|v 120167 " 𝕧
 digraphs \|w 120168 " 𝕨
 digraphs \|x 120169 " 𝕩
+digraphs \|y 120170 " 𝕪
+digraphs \|z 120171 " 𝕫
 digraphs \|0 120792 " 𝟘
 digraphs \|1 120793 " 𝟙
 digraphs \|2 120794 " 𝟚
