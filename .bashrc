@@ -175,17 +175,17 @@ done
 unset f cmd
 
 # other shell completions
-if [[ -f $XDG_CONFIG_HOME/nvm/bash_completion ]]; then
+if [[ -f $NVM_DIR/bash_completion ]]; then
     # shellcheck source=.config/nvm/bash_completion
-    source "$XDG_CONFIG_HOME/nvm/bash_completion"
+    source "$NVM_DIR/bash_completion"
 fi
-if [[ -f $XDG_DATA_HOME/opam/opam-init/complete.sh ]]; then
+if [[ -f $OPAMROOT/opam-init/complete.sh ]]; then
     # shellcheck source=.local/share/opam/opam-init/complete.sh
-    source "$XDG_DATA_HOME/opam/opam-init/complete.sh"
+    source "$OPAMROOT/opam-init/complete.sh"
 fi
-if [[ -f $XDG_DATA_HOME/opam/opam-init/env_hook.sh ]]; then
+if [[ -f $OPAMROOT/opam-init/env_hook.sh ]]; then
     # shellcheck source=.local/share/opam/opam-init/env_hook.sh
-    source "$XDG_DATA_HOME/opam/opam-init/env_hook.sh"
+    source "$OPAMROOT/opam-init/env_hook.sh"
 fi
 if [[ -f "$XDG_DATA_HOME/ghcup/env" ]]; then
     # shellcheck source=.local/share/ghcup/env
