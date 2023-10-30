@@ -1,8 +1,8 @@
+set nocompatible " Disable Vi compatibility
+
 " Hide vim's generated files in XDG directories
-" Not worrying about moving configuration files for now
 if empty($XDG_CACHE_HOME) | let $XDG_CACHE_HOME = $HOME.'/.cache'       | endif
 if empty($XDG_STATE_HOME) | let $XDG_STATE_HOME = $HOME.'/.local/state' | endif
-set nocompatible
 set backupdir=$XDG_STATE_HOME/vim/backup | call mkdir(&backupdir, 'p')
 set directory=$XDG_STATE_HOME/vim/swap   | call mkdir(&directory, 'p')
 set undodir=$XDG_STATE_HOME/vim/undo     | call mkdir(&undodir,   'p')
@@ -12,6 +12,7 @@ set viminfofile=$XDG_STATE_HOME/vim/viminfo
 " (OCaml) ocp-indent
 set runtimepath^=$XDG_DATA_HOME/opam/default/share/ocp-indent/vim
 
+" Vim Plug
 call plug#begin($HOME.'/.vim/plugged')
 
 " Plugins for all filetypes
@@ -36,6 +37,9 @@ Plug 'ctrlpvim/ctrlp.vim'        " Fuzzy search
 Plug 'guns/vim-sexp'             " S-Expression handling
 Plug 'luochen1990/rainbow'       " Rainbow parentheses
 Plug 'tpope/vim-sexp-mappings-for-regular-people' " Sane S-Expression mappings
+
+" jq
+Plug 'vito-c/jq.vim'
 
 " Coq
 Plug 'whonore/Coqtail'           " Coq environment
@@ -89,9 +93,9 @@ filetype on
 filetype indent on
 filetype plugin on
 set termguicolors
-let g:neodark#background = '#202020'
 set background=dark
 colorscheme neodark
+let g:neodark#background = '#202020'
 
 " General settings
 set autoindent " Copy indent from current line when starting a new line

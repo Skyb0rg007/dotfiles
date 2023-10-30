@@ -104,7 +104,7 @@ case "${1,,}" in
         usage
         ;;
     --completion)
-        echo "complete -W '${commands[*]}' latest-release"
+        echo "complete -W '${commands[*]} -h --help' latest-release"
         ;;
     mlkit)
         query-stow-versions mlkit
