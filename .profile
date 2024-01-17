@@ -9,7 +9,8 @@ export DISPLAY=":0.0"
 export EDITOR=vim
 export VISUAL=vim
 
-# XDG Base Directory Specicication (https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
+# XDG Base Directory Specicication
+# https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
 # XDG_DATA_HOME:
 #   User-specific data files.
 #   Analogous to /usr/share.
@@ -59,7 +60,7 @@ elif [ "$(stat --format="%U" "$XDG_RUNTIME_DIR")" != "$USER" ]; then
     echo >&2 "XDG_RUNTIME_DIR ($XDG_RUNTIME_DIR) is not owned by current user ($USER)"
 elif [ "$(stat --format="%a" "$XDG_RUNTIME_DIR")" != 700 ]; then
     echo >&2 "XDG_RUNTIME_DIR ($XDG_RUNTIME_DIR) does not have the right access rights"
-elif [ "$(df -T "$XDG_RUNTIME_DIR" | tail --lines=+2 | awk '{ print $2 }')" != tmpfs ]; then
+elif [ "$(df -T "$XDG_RUNTIME_DIR" | awk 'NR == 2 { print $2 }')" != tmpfs ]; then
     echo >&2 "XDG_RUNTIME_DIR ($XDG_RUNTIME_DIR) is not mounted on a tmpfs file system"
 fi
 
@@ -88,9 +89,11 @@ path_append  PATH "$XDG_DATA_HOME/go/bin"
 path_append  PATH "$XDG_DATA_HOME/luarocks/bin"
 path_append  PATH "$XDG_DATA_HOME/npm/bin"
 path_append  PATH "$XDG_CONFIG_HOME/emacs/bin"
+path_append  PATH "$XDG_DATA_HOME/python/bin"
 path_append  PATH "/mnt/c/Program Files/Mozilla Firefox"
 path_append  PATH "/opt/gradle/gradle-8.3/bin"
 path_append  PATH "/opt/ghidra/ghidra-10.3.3/bin"
+path_append  PATH "/opt/riscv/bin"
 
 # These utilities require sourcing their own scripts
 if [ -f "$XDG_CONFIG_HOME/nvm/nvm.sh" ]; then
@@ -192,3 +195,7 @@ sed --in-place --expression='/hsts-file/c\\hsts-file = '"$XDG_CONFIG_HOME"'/wget
 export ZEF_CONFIG_STOREDIR="$XDG_DATA_HOME/zef"
 export ZEF_CONFIG_PATH="$XDG_CONFIG_HOME/zef/config.json"
 export ZEF_CONFIG_TEMPDIR="$XDG_CACHE_HOME/zef"
+
+# Non-XDG configuration
+# mizar
+export MIZFILES="/usr/local/share/mizar"

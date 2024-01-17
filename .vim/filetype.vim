@@ -6,4 +6,5 @@ augroup filetypedetect
     autocmd! BufRead,BufNewFile *.scm,*.sld       setfiletype scheme
     autocmd! BufRead,BufNewFile *.bqn             setfiletype bqn
     autocmd! BufRead,BufNewFile *.agda            setfiletype agda
+    autocmd! BufRead,BufNewFile *.elf             setfiletype twelf
 augroup END
