@@ -7,4 +7,6 @@ let b:AutoPairs = { '(': ')', '[': ']', '{': '}', '"': '"' }
 
 nnoremap <leader>ss :SMLReplStart<cr>
 nnoremap <leader>sb :SMLReplBuild<cr>
+nnoremap <leader>sq :SMLReplStop<cr>
 nnoremap <leader>sc :SMLReplClear<cr>
+nnoremap <leader>st :SMLTypeQuery<cr>
