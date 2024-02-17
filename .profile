@@ -199,3 +199,4 @@ export ZEF_CONFIG_TEMPDIR="$XDG_CACHE_HOME/zef"
 # Non-XDG configuration
 # mizar
 export MIZFILES="/usr/local/share/mizar"
+

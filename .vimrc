@@ -38,6 +38,9 @@ Plug 'guns/vim-sexp'             " S-Expression handling
 Plug 'luochen1990/rainbow'       " Rainbow parentheses
 Plug 'tpope/vim-sexp-mappings-for-regular-people' " Sane S-Expression mappings
 
+" LEAN
+Plug 'leanprover/lean.vim'
+
 " jq
 Plug 'vito-c/jq.vim'
 
