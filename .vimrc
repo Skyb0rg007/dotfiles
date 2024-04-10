@@ -32,6 +32,7 @@ Plug 'tpope/vim-vinegar'         " Netrw assistance
 Plug 'tpope/vim-dadbod'          " Database stuff
 Plug 'tpope/vim-fugitive'        " Git stuff
 Plug 'ctrlpvim/ctrlp.vim'        " Fuzzy search
+Plug 'mcchrish/nnn.vim'          " nnn file manager
 
 " LISP
 Plug 'guns/vim-sexp'             " S-Expression handling
@@ -239,6 +240,7 @@ digraphs .>  8919 " ⋗
 digraphs \|< 10216 " ⟨
 digraphs \|> 10217 " ⟩
 digraphs ~>  10547 " ⤳
+digraphs sj  11388 " ⱼ
 digraphs Fg  120100 " 𝔤
 digraphs \|A 120120 " 𝔸
 digraphs \|B 120121 " 𝔹
