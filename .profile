@@ -91,9 +91,7 @@ path_append  PATH "$XDG_DATA_HOME/npm/bin"
 path_append  PATH "$XDG_CONFIG_HOME/emacs/bin"
 path_append  PATH "$XDG_DATA_HOME/python/bin"
 path_append  PATH "/mnt/c/Program Files/Mozilla Firefox"
-path_append  PATH "/opt/gradle/gradle-8.3/bin"
-path_append  PATH "/opt/ghidra/ghidra-10.3.3/bin"
-path_append  PATH "/opt/riscv/bin"
+path_append  PATH "/usr/local/share/perl6/site/bin"
 
 # These utilities require sourcing their own scripts
 if [ -f "$XDG_CONFIG_HOME/nvm/nvm.sh" ]; then
@@ -193,10 +191,14 @@ export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 sed --in-place --expression='/hsts-file/c\\hsts-file = '"$XDG_CONFIG_HOME"'/wget/hosts' "$WGETRC"
 # zef
 export ZEF_CONFIG_STOREDIR="$XDG_DATA_HOME/zef"
-export ZEF_CONFIG_PATH="$XDG_CONFIG_HOME/zef/config.json"
+# export ZEF_CONFIG_PATH="$XDG_CONFIG_HOME/zef/config.json"
 export ZEF_CONFIG_TEMPDIR="$XDG_CACHE_HOME/zef"
 
 # Non-XDG configuration
+# nnn
+export NNN_BMS="p:$HOME/Projects"
+NNN_BMS="$NNN_BMS;c:$HOME/Courses/Compilers"
+NNN_BMS="$NNN_BMS;e:$HOME/Courses/exercism"
 # mizar
 export MIZFILES="/usr/local/share/mizar"
 
