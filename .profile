@@ -201,4 +201,6 @@ NNN_BMS="$NNN_BMS;c:$HOME/Courses/Compilers"
 NNN_BMS="$NNN_BMS;e:$HOME/Courses/exercism"
 # mizar
 export MIZFILES="/usr/local/share/mizar"
+# manpages
+export MANPAGER="vim -M +MANPAGER -"
 

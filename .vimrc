@@ -157,6 +157,8 @@ set ttymouse=sgr
 runtime ftplugin/man.vim
 set keywordprg=:Man
 
+let g:awk_is_gawk = 1
+
 "--- Mappings ---
 
 " <C-L> clears search results
