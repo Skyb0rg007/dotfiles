@@ -192,109 +192,140 @@ augroup END
 
 "--- Digraphs ---
 
-digraphs !!  0449 " ǁ
-digraphs Sr  0691 " ʳ
-digraphs Sx  0739 " ˣ
-digraphs SH  7476 " ᴴ
-digraphs SR  7487 " ᴿ
-digraphs ST  7488 " ᵀ
-digraphs Sd  7496 " ᵈ
-digraphs Sk  7503 " ᵏ
-digraphs Sp  7510 " ᵖ
-digraphs St  7511 " ᵗ
-digraphs si  7522 " ᵢ
-digraphs sr  7523 " ᵣ
-digraphs Si  8305 " ⁱ
-digraphs Sn  8319 " ⁿ
-digraphs sx  8339 " ₓ
-digraphs sk  8342 " ₖ
-digraphs sl  8343 " ₗ
-digraphs sn  8345 " ₙ
-digraphs sp  8346 " ₚ
-digraphs st  8348 " ₜ
-digraphs \|C 8450 " ℂ
-digraphs \|H 8461 " ℍ
-digraphs \|N 8469 " ℕ
-digraphs \|P 8473 " ℙ
-digraphs \|Q 8474 " ℚ
-digraphs \|R 8477 " ℝ
-digraphs \|Z 8484 " ℤ
-digraphs /D  8517 " ⅅ
-digraphs /d  8518 " ⅆ
-digraphs /e  8519 " ⅇ
-digraphs /i  8520 " ⅈ
-digraphs /j  8521 " ⅉ
-digraphs 17  8528 " ⅐
-digraphs 19  8529 " ⅑
-digraphs 10  8530 " ⅒
-digraphs !3  8802 " ≢
-digraphs [_  8849 " ⊑
-digraphs ]_  8850 " ⊑
-digraphs [U  8851 " ⊓
-digraphs ]U  8852 " ⊔
-digraphs +o  8853 " ⊕
-digraphs -o  8854 " ⊖
-digraphs xo  8855 " ⊗
-digraphs \|- 8866 " ⊢
-digraphs T+  8868 " ⊤
-digraphs <.  8918 " ⋖
-digraphs .>  8919 " ⋗
-digraphs \|< 10216 " ⟨
-digraphs \|> 10217 " ⟩
-digraphs ~>  10547 " ⤳
-digraphs sj  11388 " ⱼ
-digraphs Fg  120100 " 𝔤
-digraphs \|A 120120 " 𝔸
-digraphs \|B 120121 " 𝔹
-digraphs \|D 120123 " 𝔻
-digraphs \|E 120124 " 𝔼
-digraphs \|F 120125 " 𝔽
-digraphs \|G 120126 " 𝔾
-digraphs \|I 120128 " 𝕀
-digraphs \|J 120129 " 𝕁
-digraphs \|K 120130 " 𝕂
-digraphs \|L 120131 " 𝕃
-digraphs \|M 120132 " 𝕄
-digraphs \|O 120134 " 𝕆
-digraphs \|S 120138 " 𝕊
-digraphs \|W 120142 " 𝕎
-digraphs \|X 120143 " 𝕏
-digraphs \|a 120146 " 𝕒
-digraphs \|b 120147 " 𝕓
-digraphs \|c 120148 " 𝕔
-digraphs \|d 120149 " 𝕕
-digraphs \|e 120150 " 𝕖
-digraphs \|f 120151 " 𝕗
-digraphs \|g 120152 " 𝕘
-digraphs \|h 120153 " 𝕙
-digraphs \|i 120154 " 𝕚
-digraphs \|j 120155 " 𝕛
-digraphs \|k 120156 " 𝕜
-digraphs \|l 120157 " 𝕝
-digraphs \|m 120158 " 𝕞
-digraphs \|n 120159 " 𝕟
-digraphs \|o 120160 " 𝕠
-digraphs \|p 120161 " 𝕡
-digraphs \|q 120162 " 𝕢
-digraphs \|r 120163 " 𝕣
-digraphs \|s 120164 " 𝕤
-digraphs \|t 120165 " 𝕥
-digraphs \|u 120166 " 𝕦
-digraphs \|v 120167 " 𝕧
-digraphs \|w 120168 " 𝕨
-digraphs \|x 120169 " 𝕩
-digraphs \|y 120170 " 𝕪
-digraphs \|z 120171 " 𝕫
-digraphs \|0 120792 " 𝟘
-digraphs \|1 120793 " 𝟙
-digraphs \|2 120794 " 𝟚
-digraphs \|3 120795 " 𝟛
-digraphs \|4 120796 " 𝟜
-digraphs \|5 120797 " 𝟝
-digraphs \|6 120798 " 𝟞
-digraphs \|7 120799 " 𝟟
-digraphs \|8 120800 " 𝟠
-digraphs \|9 120801 " 𝟡
+" Miscellaneous
+call digraph_set('!!', "\u01c1") " ǁ
+call digraph_set('/D', "\u2145") " ⅅ
+call digraph_set('/d', "\u2146") " ⅆ
+call digraph_set('/e', "\u2147") " ⅇ
+call digraph_set('/i', "\u2148") " ⅈ
+call digraph_set('/j', "\u2149") " ⅉ
+
+" Misc Mathematical
+call digraph_set('!3', "\u2262") " ≢
+call digraph_set('[_', "\u2191") " ⊑
+call digraph_set(']_', "\u2291") " ⊑
+call digraph_set('[U', "\u2293") " ⊓
+call digraph_set(']U', "\u2294") " ⊔
+call digraph_set('+o', "\u2295") " ⊕
+call digraph_set('-o', "\u2296") " ⊖
+call digraph_set('xo', "\u2297") " ⊗
+call digraph_set('|-', "\u22a2") " ⊢
+call digraph_set('T+', "\u22a4") " ⊤
+call digraph_set('<.', "\u22d6") " ⋖
+call digraph_set('.>', "\u22d7") " ⋗
+call digraph_set('|<', "\u27e8") " ⟨
+call digraph_set('|>', "\u27e9") " ⟩
+call digraph_set('~>', "\u2933") " ⤳
+
+" Latin Superscript Small Letters (TODO: Finish the set)
+" ᵈ ⁱ ᵏ ⁿ ᵖ ʳ ᵗ ˣ
+call digraph_setlist(
+            \ [['Sd', "\u1d48"],
+            \  ['Si', "\u2071"],
+            \  ['Sk', "\u1d4f"],
+            \  ['Sn', "\u207f"],
+            \  ['Sp', "\u1d56"],
+            \  ['Sr', "\u02b3"],
+            \  ['St', "\u1d57"],
+            \  ['Sx', "\u02e3"]])
+
+" Latin Superscript Capital Letters (TODO: Finish the set)
+" ᴴ ᴿ ᵀ
+call digraph_setlist(
+            \ [['SH', "\u1d34"],
+            \  ['SR', "\u1d3f"],
+            \  ['ST', "\u1d40"]])
+
+" Latin Subscript Small Letters (TODO: Finish the set)
+" ₐ ₑ ₕ ᵢ ⱼ ₖ ₗ ₙ ₒ ₚ ₜ ₓ
+call digraph_setlist(
+            \ [['sa', "\u2090"],
+            \  ['se', "\u2091"],
+            \  ['sh', "\u2095"],
+            \  ['si', "\u1d62"], ['sj', "\u2c7c"],
+            \  ['sk', "\u2096"], ['sl', "\u2097"],
+            \  ['sn', "\u2099"],
+            \  ['so', "\u2092"], ['sp', "\u209a"],
+            \  ['st', "\u209c"],
+            \  ['sx', "\u2093"],
+            \ ])
+
+" Fractions
+" ⅐ ⅑ ⅒
+call digraph_setlist([['17', "\u2150"], ['19', "\u2151"], ['10', "\u2152"]])
+
+""" Mathematical Alphanumeric Symbols
+
+" Fraktur
+" 𝔄 𝔅 ℭ 𝔇 𝔈 𝔉 𝔊 ℌ ℑ 𝔍 𝔎 𝔏 𝔐 𝔑 𝔒 𝔓 𝔔 ℜ 𝔖 𝔗 𝔘 𝔙 𝔚 𝔛 𝔜 ℨ
+" 𝔞 𝔟 𝔠 𝔡 𝔢 𝔣 𝔤 𝔥 𝔦 𝔧 𝔨 𝔩 𝔪 𝔫 𝔬 𝔭 𝔮 𝔯 𝔰 𝔱 𝔲 𝔳 𝔴 𝔵 𝔶 𝔷
+" Use 'AF' to avoid clobbering 'FA'(∀)
+call digraph_setlist(
+            \ [['AF', "\U0001d504"], ['FB', "\U0001d505"],
+            \  ['FC', "\u212d"],     ['FD', "\U0001d507"],
+            \  ['FE', "\U0001d508"], ['FF', "\U0001d509"],
+            \  ['FG', "\U0001d50a"], ['FH', "\u210c"],
+            \  ['FI', "\u2111"],     ['FJ', "\U0001d50d"],
+            \  ['FK', "\U0001d50e"], ['FL', "\U0001d50f"],
+            \  ['FM', "\U0001d510"], ['FN', "\U0001d511"],
+            \  ['FO', "\U0001d512"], ['FP', "\U0001d513"],
+            \  ['FQ', "\U0001d514"], ['FR', "\u211c"],
+            \  ['FS', "\U0001d516"], ['FT', "\U0001d517"],
+            \  ['FU', "\U0001d518"], ['FV', "\U0001d519"],
+            \  ['FW', "\U0001d51a"], ['FX', "\U0001d51b"],
+            \  ['FY', "\U0001d51c"], ['FZ', "\u2128"],
+            \  ['Fa', "\U0001d51e"], ['Fb', "\U0001d51f"],
+            \  ['Fc', "\U0001d520"], ['Fd', "\U0001d521"],
+            \  ['Fe', "\U0001d522"], ['Ff', "\U0001d523"],
+            \  ['Fg', "\U0001d524"], ['Fh', "\U0001d525"],
+            \  ['Fi', "\U0001d526"], ['Fj', "\U0001d527"],
+            \  ['Fk', "\U0001d528"], ['Fl', "\U0001d529"],
+            \  ['Fm', "\U0001d52a"], ['Fn', "\U0001d52b"],
+            \  ['Fo', "\U0001d52c"], ['Fp', "\U0001d52d"],
+            \  ['Fq', "\U0001d52e"], ['Fr', "\U0001d52f"],
+            \  ['Fs', "\U0001d530"], ['Ft', "\U0001d531"],
+            \  ['Fu', "\U0001d532"], ['Fv', "\U0001d533"],
+            \  ['Fw', "\U0001d534"], ['Fx', "\U0001d535"],
+            \  ['Fy', "\U0001d536"], ['Fz', "\U0001d537"],
+            \  ])
+
+" Double-Struck
+" 𝔸 𝔹 ℂ 𝔻 𝔼 𝔽 𝔾 ℍ 𝕀 𝕁 𝕂 𝕃 𝕄 ℕ 𝕆 ℙ ℚ ℝ 𝕊 𝕋 𝕌 𝕍 𝕎 𝕏 𝕐 ℤ
+" 𝕒 𝕓 𝕔 𝕕 𝕖 𝕗 𝕘 𝕙 𝕚 𝕛 𝕜 𝕝 𝕞 𝕟 𝕠 𝕡 𝕢 𝕣 𝕤 𝕥 𝕦 𝕧 𝕨 𝕩 𝕪 𝕫
+" 𝟘 𝟙 𝟚 𝟛 𝟜 𝟝 𝟞 𝟟 𝟠 𝟡
+call digraph_setlist(
+            \ [['|A', "\U0001d538"], ['|B', "\U0001d539"],
+            \  ['|C', "\u2102"],     ['|D', "\U0001d53b"],
+            \  ['|E', "\U0001d53c"], ['|F', "\U0001d53d"],
+            \  ['|G', "\U0001d53e"], ['|H', "\u210d"],
+            \  ['|I', "\U0001d540"], ['|J', "\U0001d541"],
+            \  ['|K', "\U0001d542"], ['|L', "\U0001d543"],
+            \  ['|M', "\U0001d544"], ['|N', "\u2115"],
+            \  ['|O', "\U0001d546"], ['|P', "\u2119"],
+            \  ['|Q', "\u211a"],     ['|R', "\u211d"],
+            \  ['|S', "\U0001d54a"], ['|T', "\U0001d54b"],
+            \  ['|U', "\U0001d54c"], ['|V', "\U0001d54d"],
+            \  ['|W', "\U0001d54e"], ['|X', "\U0001d54f"],
+            \  ['|Y', "\U0001d550"], ['|Z', "\u2124"],
+            \  ['|a', "\U0001d552"], ['|b', "\U0001d553"],
+            \  ['|c', "\U0001d554"], ['|d', "\U0001d555"],
+            \  ['|e', "\U0001d556"], ['|f', "\U0001d557"],
+            \  ['|g', "\U0001d558"], ['|h', "\U0001d559"],
+            \  ['|i', "\U0001d55a"], ['|j', "\U0001d55b"],
+            \  ['|k', "\U0001d55c"], ['|l', "\U0001d55d"],
+            \  ['|m', "\U0001d55e"], ['|n', "\U0001d55f"],
+            \  ['|o', "\U0001d560"], ['|p', "\U0001d561"],
+            \  ['|q', "\U0001d562"], ['|r', "\U0001d563"],
+            \  ['|s', "\U0001d564"], ['|t', "\U0001d565"],
+            \  ['|u', "\U0001d566"], ['|v', "\U0001d567"],
+            \  ['|w', "\U0001d568"], ['|x', "\U0001d569"],
+            \  ['|y', "\U0001d56a"], ['|z', "\U0001d56b"],
+            \  ['|0', "\U0001d7d8"], ['|1', "\U0001d7d9"],
+            \  ['|2', "\U0001d7da"], ['|3', "\U0001d7db"],
+            \  ['|4', "\U0001d7dc"], ['|5', "\U0001d7dd"],
+            \  ['|6', "\U0001d7de"], ['|7', "\U0001d7df"],
+            \  ['|8', "\U0001d7e0"], ['|9', "\U0001d7e1"],
+            \ ])
 
 "--- Plugin settings ---
 
