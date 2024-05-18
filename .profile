@@ -92,6 +92,7 @@ path_append  PATH "$XDG_CONFIG_HOME/emacs/bin"
 path_append  PATH "$XDG_DATA_HOME/python/bin"
 path_append  PATH "/mnt/c/Program Files/Mozilla Firefox"
 path_append  PATH "/usr/local/share/perl6/site/bin"
+path_append  PATH "/opt/riscv/bin"
 
 # These utilities require sourcing their own scripts
 if [ -f "$XDG_CONFIG_HOME/nvm/nvm.sh" ]; then
