@@ -1,5 +1,6 @@
 set nocompatible " Disable Vi compatibility
 
+
 " Hide vim's generated files in XDG directories
 if empty($XDG_CACHE_HOME) | let $XDG_CACHE_HOME = $HOME.'/.cache'       | endif
 if empty($XDG_STATE_HOME) | let $XDG_STATE_HOME = $HOME.'/.local/state' | endif
@@ -33,6 +34,9 @@ Plug 'tpope/vim-dadbod'          " Database stuff
 Plug 'tpope/vim-fugitive'        " Git stuff
 Plug 'ctrlpvim/ctrlp.vim'        " Fuzzy search
 Plug 'mcchrish/nnn.vim'          " nnn file manager
+" Plug 'kana/vim-arpeggio'         " chording
+Plug 'github/copilot.vim'        " Copilot support
+" Plug 'sirver/ultisnips'
 
 " LISP
 Plug 'guns/vim-sexp'             " S-Expression handling
@@ -87,6 +91,9 @@ Plug 'Raku/vim-raku'
 " Vimscript
 Plug 'junegunn/vader.vim'
 
+" KMonad
+Plug 'kmonad/kmonad-vim'
+
 call plug#end()
 
 let g:skip_loading_mswin = 1
@@ -107,7 +114,7 @@ set autoread " Re-read a file when a change occurs
 set backspace=indent,eol,start " Allow backspacing over everything
 set complete=".,w,b,u,t" " Completes by looking at (loaded & unloaded) buffers, windows, tags
 set display+=lastline " Show the last line as much as possible
-set encoding=utf-8 " Force utf8
+set encoding=utf-8 " Force UTF-8
 set expandtab " Tabs are replaced by spaces
 set formatoptions="tcqj" " Auto-wrap text and comments, gq formats comments, remove comment when joining lines
 set hlsearch " Highlight the search
@@ -134,6 +141,8 @@ set splitright " Split below and to the right
 set t_Co=256 " Number of colors
 set visualbell " Disable alarm
 set path=.,/usr/include/,/usr/include/x86_64-linux-gnu/,,
+set dictionary+=/usr/share/dict/words
+set spell spelllang=en_us
 
 " Folds
 set foldmethod=indent
@@ -167,15 +176,15 @@ nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR
 nnoremap Y y$
 
 " emacs-keys:
-cnoremap <C-A>      <Home>
-cnoremap <C-B>      <Left>
-cnoremap <C-D>      <Del>
-cnoremap <C-E>      <End>
-cnoremap <C-F>      <Right>
-cnoremap <C-N>      <Down>
-cnoremap <C-P>      <Up>
-cnoremap <Esc><C-B> <S-Left>
-cnoremap <Esc><C-F> <S-Right>
+cnoremap <C-A> <Home>
+cnoremap <C-B> <Left>
+cnoremap <C-D> <Del>
+cnoremap <C-E> <End>
+cnoremap <C-F> <Right>
+cnoremap <C-N> <Down>
+cnoremap <C-P> <Up>
+" cnoremap <Esc><C-B> <S-Left>
+" cnoremap <Esc><C-F> <S-Right>
 
 " Prompt for directory creation (if doesn't exist) on save
 augroup VIMRC_AUTO_MKDIR
@@ -199,6 +208,7 @@ call digraph_set('/d', "\u2146") " ⅆ
 call digraph_set('/e', "\u2147") " ⅇ
 call digraph_set('/i', "\u2148") " ⅈ
 call digraph_set('/j', "\u2149") " ⅉ
+call digraph_set('=.', "\u2250") " ≐
 
 " Misc Mathematical
 call digraph_set('!3', "\u2262") " ≢
@@ -216,6 +226,7 @@ call digraph_set('.>', "\u22d7") " ⋗
 call digraph_set('|<', "\u27e8") " ⟨
 call digraph_set('|>', "\u27e9") " ⟩
 call digraph_set('~>', "\u2933") " ⤳
+call digraph_set('|=', "\u22a8") " ⊨
 
 " Latin Superscript Small Letters (TODO: Finish the set)
 " ᵈ ⁱ ᵏ ⁿ ᵖ ʳ ᵗ ˣ
@@ -293,6 +304,7 @@ call digraph_setlist(
 " 𝔸 𝔹 ℂ 𝔻 𝔼 𝔽 𝔾 ℍ 𝕀 𝕁 𝕂 𝕃 𝕄 ℕ 𝕆 ℙ ℚ ℝ 𝕊 𝕋 𝕌 𝕍 𝕎 𝕏 𝕐 ℤ
 " 𝕒 𝕓 𝕔 𝕕 𝕖 𝕗 𝕘 𝕙 𝕚 𝕛 𝕜 𝕝 𝕞 𝕟 𝕠 𝕡 𝕢 𝕣 𝕤 𝕥 𝕦 𝕧 𝕨 𝕩 𝕪 𝕫
 " 𝟘 𝟙 𝟚 𝟛 𝟜 𝟝 𝟞 𝟟 𝟠 𝟡
+" ⨟
 call digraph_setlist(
             \ [['|A', "\U0001d538"], ['|B', "\U0001d539"],
             \  ['|C', "\u2102"],     ['|D', "\U0001d53b"],
@@ -325,9 +337,18 @@ call digraph_setlist(
             \  ['|4', "\U0001d7dc"], ['|5', "\U0001d7dd"],
             \  ['|6', "\U0001d7de"], ['|7', "\U0001d7df"],
             \  ['|8', "\U0001d7e0"], ['|9', "\U0001d7e1"],
+            \  ['|;', "\u2a1f"],
             \ ])
 
 "--- Plugin settings ---
+
+let g:copilot_enabled = v:false
+
+" let g:UltiSnipsJumpOrExpandTrigger = "<tab>"
+" let g:UltiSnipsListSnippets = "<c-q>"
+" let g:UltiSnipsJumpForwardTrigger = "<c-j>"
+" let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
+" let g:UltiSnipsEditSplit = "vertical"
 
 " Netrw
 let g:netrw_banner = 0

@@ -174,6 +174,15 @@ for f in "$XDG_DATA_HOME/bash-completion/completions"/*; do
 done
 unset f cmd
 
+# Adding wsl-open as a browser for Bash for Windows
+if [[ $(uname -r) =~ (m|M)icrosoft ]]; then
+    if [[ -z $BROWSER ]]; then
+        export BROWSER=wsl-open
+    else
+        export BROWSER=$BROWSER:wsl-open
+    fi
+fi
+
 # other shell completions
 if [[ -f $NVM_DIR/bash_completion ]]; then
     # shellcheck source=.config/nvm/bash_completion
