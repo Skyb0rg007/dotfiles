@@ -54,15 +54,24 @@ for var in XDG_CONFIG_HOME XDG_CACHE_HOME XDG_DATA_HOME XDG_STATE_HOME; do
     fi
 done
 unset var val
-if [ ! -d "$XDG_RUNTIME_DIR" ]; then
-    echo >&2 "XDG_RUNTIME_DIR ($XDG_RUNTIME_DIR) does not exist"
-elif [ "$(stat --format="%U" "$XDG_RUNTIME_DIR")" != "$USER" ]; then
-    echo >&2 "XDG_RUNTIME_DIR ($XDG_RUNTIME_DIR) is not owned by current user ($USER)"
-elif [ "$(stat --format="%a" "$XDG_RUNTIME_DIR")" != 700 ]; then
-    echo >&2 "XDG_RUNTIME_DIR ($XDG_RUNTIME_DIR) does not have the right access rights"
-elif [ "$(df -T "$XDG_RUNTIME_DIR" | awk 'NR == 2 { print $2 }')" != tmpfs ]; then
-    echo >&2 "XDG_RUNTIME_DIR ($XDG_RUNTIME_DIR) is not mounted on a tmpfs file system"
-fi
+
+check_xdg_runtime_dir () {
+    if [ ! -d "$XDG_RUNTIME_DIR" ]; then
+        echo >&2 "XDG_RUNTIME_DIR ($XDG_RUNTIME_DIR) does not exist"
+        return 1
+    elif [ "$(stat --format="%U" "$XDG_RUNTIME_DIR")" != "$USER" ]; then
+        echo >&2 "XDG_RUNTIME_DIR ($XDG_RUNTIME_DIR) is not owned by current user ($USER)"
+        return 2
+    elif [ "$(stat --format="%a" "$XDG_RUNTIME_DIR")" != 700 ]; then
+        echo >&2 "XDG_RUNTIME_DIR ($XDG_RUNTIME_DIR) does not have the right access rights"
+        return 3
+    elif [ "$(df -T "$XDG_RUNTIME_DIR" | awk 'NR == 2 { print $2 }')" != tmpfs ]; then
+        echo >&2 "XDG_RUNTIME_DIR ($XDG_RUNTIME_DIR) is not mounted on a tmpfs file system"
+        return 4
+    fi
+    return 0
+}
+check_xdg_runtime_dir || true
 
 # path_prepend var dir
 # path_append var dir

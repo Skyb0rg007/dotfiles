@@ -223,6 +223,15 @@ nuke-stack () {
     rm --force --recursive -- "$STACK_ROOT/templates"
     rm --force -- "$STACK_ROOT/stack.sqlite3"
     rm --force -- "$STACK_ROOT/stack.sqlite3.pantry-write-lock"
+
+fix_xdg_runtime_dir () {
+    local id
+    id="$(id -u)"
+    while ! check_xdg_runtime_dir >/dev/null 2>&1; do
+        echo sudo systemctl restart "user@$id"
+        sudo systemctl restart "user@$id"
+        sleep 5
+    done
 }
 
 # enable programmable completion features
