@@ -32,11 +32,15 @@ Plug 'tpope/vim-commentary'      " Minimal commenting plugin (maps gc<movement>)
 Plug 'tpope/vim-vinegar'         " Netrw assistance
 Plug 'tpope/vim-dadbod'          " Database stuff
 Plug 'tpope/vim-fugitive'        " Git stuff
+Plug 'tpope/vim-obsession'       " Session management
 Plug 'ctrlpvim/ctrlp.vim'        " Fuzzy search
 Plug 'mcchrish/nnn.vim'          " nnn file manager
 " Plug 'kana/vim-arpeggio'         " chording
 Plug 'github/copilot.vim'        " Copilot support
 " Plug 'sirver/ultisnips'
+
+" Ansible
+Plug 'pearofducks/ansible-vim'
 
 " LISP
 Plug 'guns/vim-sexp'             " S-Expression handling
@@ -61,6 +65,9 @@ Plug 'souffle-lang/souffle.vim'  " Syntax highlighting
 " BQN
 Plug 'mlochbaum/BQN', { 'rtp': 'editors/vim' }
 
+" Uiua
+Plug 'sputnick1124/uiua.vim', { 'for': 'uiua' }
+
 " Koka
 Plug 'Nymphium/vim-koka'
 
@@ -71,10 +78,10 @@ Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'rhysd/vim-llvm'
 
 " Dhall
-Plug 'vmchale/dhall-vim'
+Plug 'vmchale/dhall-vim', { 'for': 'dhall' }
 
 " Elm
-Plug 'elm-tooling/elm-vim'
+Plug 'elm-tooling/elm-vim', { 'for': 'elm' }
 
 " Markdown
 Plug 'iamcco/markdown-preview.nvim', {'do': 'cd app && npm install'}
@@ -142,7 +149,8 @@ set t_Co=256 " Number of colors
 set visualbell " Disable alarm
 set path=.,/usr/include/,/usr/include/x86_64-linux-gnu/,,
 set dictionary+=/usr/share/dict/words
-set spell spelllang=en_us
+set spelllang=en_us
+set relativenumber
 
 " Folds
 set foldmethod=indent

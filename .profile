@@ -40,9 +40,14 @@ XDG_CONFIG_HOME="$HOME/.config"
 XDG_CACHE_HOME="$HOME/.cache"
 XDG_DATA_HOME="$HOME/.local/share"
 XDG_STATE_HOME="$HOME/.local/state"
-XDG_RUNTIME_DIR="/run/user/$(id -u)"
+# XDG_RUNTIME_DIR="/run/user/$(id -u)"
 XDG_DATA_DIRS="/usr/local/share:/usr/share:/var/lib/snapd/desktop"
 XDG_CONFIG_DIRS="/etc/xdg"
+
+# if [ ! -d "$XDG_RUNTIME_DIR" ]; then
+#     XDG_RUNTIME_DIR="/tmp/xdg-runtime-$(id -u)"
+#     mkdir -m 700 "$XDG_RUNTIME_DIR" >/dev/null 2>&1 || true
+# fi
 
 # Check the validity of the above assignments
 # XDG_DATA_DIRS and XDG_CONFIG_DIRS don't require any checking
@@ -89,19 +94,16 @@ path_append() {
     esac
 }
 
+# TODO: Move much of the following to a different startup file for yadm/nix
+
 ## PATH,MANPATH,INFOPATH
 path_prepend PATH "$HOME/.local/bin"
-path_append  PATH "$XDG_DATA_HOME/cabal/bin"
+path_prepend PATH "$XDG_STATE_HOME/nix/profile/bin"
 path_append  PATH "$XDG_DATA_HOME/cargo/bin"
 path_append  PATH "$XDG_DATA_HOME/elan/bin"
-path_append  PATH "$XDG_DATA_HOME/go/bin"
-path_append  PATH "$XDG_DATA_HOME/luarocks/bin"
 path_append  PATH "$XDG_DATA_HOME/npm/bin"
-path_append  PATH "$XDG_CONFIG_HOME/emacs/bin"
 path_append  PATH "$XDG_DATA_HOME/python/bin"
 path_append  PATH "/mnt/c/Program Files/Mozilla Firefox"
-path_append  PATH "/usr/local/share/perl6/site/bin"
-path_append  PATH "/opt/riscv/bin"
 
 # These utilities require sourcing their own scripts
 if [ -f "$XDG_CONFIG_HOME/nvm/nvm.sh" ]; then
@@ -114,14 +116,13 @@ if [ -f "$XDG_DATA_HOME/opam/opam-init/variables.sh" ]; then
 fi
 
 # XDG compliance (https://wiki.archlinux.org/title/XDG_Base_Directory)
-# agda
-export AGDA_DIR="$XDG_CONFIG_HOME/agda"
+# XXX: Commented fields are in home-manager
 # bash
-export HISTFILE="$XDG_STATE_HOME/bash/history"
+# export HISTFILE="$XDG_STATE_HOME/bash/history"
 # bc
 export BC_ENV_ARGS="--mathlib $XDG_CONFIG_HOME/bcrc"
 # cabal
-export CABAL_DIR="$XDG_DATA_HOME/cabal"
+# export CABAL_DIR="$XDG_DATA_HOME/cabal"
 # cargo
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 # ccache
@@ -130,9 +131,9 @@ export CCACHE_DIR="$XDG_CACHE_HOME/ccache"
 # elm
 export ELM_HOME="$XDG_CONFIG_HOME/elm"
 # gforth
-export GFORTHHIST="$XDG_STATE_HOME/gforth/history"
+# export GFORTHHIST="$XDG_STATE_HOME/gforth/history"
 # ghcup
-export GHCUP_USE_XDG_DIRS=1
+# export GHCUP_USE_XDG_DIRS=1
 # gradle
 export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 # GnuPG
@@ -177,21 +178,19 @@ export PYTHONPYCACHEPREFIX="$XDG_CACHE_HOME/python"
 # rakubrew
 export RAKUBREW_HOME="$XDG_DATA_HOME/rakubrew"
 # rakudo
-export RAKUDO_HIST="$XDG_STATE_HOME/rakudo-history"
+# export RAKUDO_HIST="$XDG_STATE_HOME/rakudo-history"
 # readline
 export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
 # rlwrap
-export RLWRAP_HOME="$XDG_STATE_HOME/rlwrap"
+# export RLWRAP_HOME="$XDG_STATE_HOME/rlwrap"
 # rustup
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 # screen
 export SCREENRC="$XDG_CONFIG_HOME/screen/config"
-# sdkman
-export SDKMAN_DIR="$XDG_DATA_HOME/sdkman"
 # sqlite3
 export SQLITE_HISTORY="$XDG_STATE_HOME/sqlite/history"
 # stack
-export STACK_ROOT="$XDG_DATA_HOME/stack"
+# export STACK_ROOT="$XDG_DATA_HOME/stack"
 # texlive
 export TEXMFCONFIG="$XDG_CONFIG/texlive/texmf-config"
 export TEXMFHOME="$XDG_DATA_HOME/texmf"
@@ -205,12 +204,10 @@ export ZEF_CONFIG_STOREDIR="$XDG_DATA_HOME/zef"
 export ZEF_CONFIG_TEMPDIR="$XDG_CACHE_HOME/zef"
 
 # Non-XDG configuration
-# nnn
-export NNN_BMS="p:$HOME/Projects"
-NNN_BMS="$NNN_BMS;c:$HOME/Courses/Compilers"
-NNN_BMS="$NNN_BMS;e:$HOME/Courses/exercism"
-# mizar
-export MIZFILES="/usr/local/share/mizar"
+# nnn (XXX: configured in Nix)
+# export NNN_BMS="p:$HOME/Projects"
+# NNN_BMS="$NNN_BMS;c:$HOME/Courses/Compilers"
+# NNN_BMS="$NNN_BMS;e:$HOME/Courses/exercism"
 # manpages
 export MANPAGER="vim -M +MANPAGER -"
 

@@ -187,6 +187,7 @@ fi
 alias ll='ls --all --classify -l'
 alias la='ls --almost-all'
 alias l='ls -C'
+alias gtypist='gtypist --word-processor'
 
 # XXX: WSL2 doesn't support this
 alert () {
@@ -213,16 +214,17 @@ update-all () {
 }
 
 # Remove all stack files, leaving configuration files intact
-nuke-stack () {
-    if [[ ! -d $STACK_ROOT ]]; then
-        return 1
-    fi
-    rm --force --recursive -- "$STACK_ROOT/.stack-work"
-    rm --force --recursive -- "$STACK_ROOT/pantry"
-    rm --force --recursive -- "$STACK_ROOT/programs"
-    rm --force --recursive -- "$STACK_ROOT/templates"
-    rm --force -- "$STACK_ROOT/stack.sqlite3"
-    rm --force -- "$STACK_ROOT/stack.sqlite3.pantry-write-lock"
+# nuke-stack () {
+#     if [[ ! -d $STACK_ROOT ]]; then
+#         return 1
+#     fi
+#     rm --force --recursive -- "$STACK_ROOT/.stack-work"
+#     rm --force --recursive -- "$STACK_ROOT/pantry"
+#     rm --force --recursive -- "$STACK_ROOT/programs"
+#     rm --force --recursive -- "$STACK_ROOT/templates"
+#     rm --force -- "$STACK_ROOT/stack.sqlite3"
+#     rm --force -- "$STACK_ROOT/stack.sqlite3.pantry-write-lock"
+# }
 
 fix_xdg_runtime_dir () {
     local id
@@ -244,34 +246,40 @@ if ! shopt -oq posix; then
 fi
 
 # warn me if completions are unneeded or out-of-date
+# WARN_COMPLETIONS=1
+if [[ -n $WARN_COMPLETIONS ]]; then
 for f in "$XDG_DATA_HOME/bash-completion/completions"/*; do
     if cmd="$(command -v "$(basename "$f")")"; then
         if [[ $f -ot $cmd ]]; then
-            # Some commands' completions can be updated automatically
-            case "$f" in
-                */stack|*/ghcup)
-                    command "$cmd" --bash-completion-script "$cmd" > "$f"
-                    ;;
-                */elan|*/rustup)
-                    command "$cmd" completions bash > "$f"
-                    ;;
-                */luarocks)
-                    command "$cmd" completion bash > "$f"
-                    ;;
-                */pip|*/pip3)
-                    command "$cmd" completion --bash > "$f"
-                    ;;
-                */latest-release)
-                    command "$cmd" --completion > "$f"
-                    ;;
-                *) echo >&2 "completion for '$cmd' is older than the binary"
-            esac
+            echo >&2 "completion for '$cmd' is older than the binary"
+        #     # Some commands' completions can be updated automatically
+        #     case "$f" in
+        #         */stack|*/ghcup)
+        #             command "$cmd" --bash-completion-script "$cmd" > "$f"
+        #             ;;
+        #         */elan|*/rustup)
+        #             command "$cmd" completions bash > "$f"
+        #             ;;
+        #         */luarocks)
+        #             command "$cmd" completion bash > "$f"
+        #             ;;
+        #         */pip|*/pip3)
+        #             command "$cmd" completion --bash > "$f"
+        #             ;;
+        #         */latest-release)
+        #             command "$cmd" --completion > "$f"
+        #             ;;
+        #         *)
+        #             echo >&2 "completion for '$cmd' is older than the binary"
+        #             ;;
+        #     esac
         fi
     else
         echo >&2 "completion for nonexistant binary '$f'"
     fi
 done
 unset f cmd
+fi
 
 # Adding wsl-open as a browser for Bash for Windows
 if [[ $(uname -r) =~ (m|M)icrosoft ]]; then
@@ -295,12 +303,47 @@ if [[ -f $OPAMROOT/opam-init/env_hook.sh ]]; then
     # shellcheck source=.local/share/opam/opam-init/env_hook.sh
     source "$OPAMROOT/opam-init/env_hook.sh"
 fi
-if [[ -f "$XDG_DATA_HOME/ghcup/env" ]]; then
-    # shellcheck source=.local/share/ghcup/env
-    source "$XDG_DATA_HOME/ghcup/env"
-fi
-if [[ -f "$SDKMAN_DIR/bin/sdkman-init.sh" ]]; then
-    # shellcheck source=.local/share/sdkman/bin/sdkman-init.sh
-    source "$SDKMAN_DIR/bin/sdkman-init.sh"
+# if [[ -f "$XDG_DATA_HOME/ghcup/env" ]]; then
+#     # shellcheck source=.local/share/ghcup/env
+#     source "$XDG_DATA_HOME/ghcup/env"
+# fi
+
+# Nix integration
+if [[ -f "$XDG_STATE_HOME/nix/profile/etc/profile.d/hm-session-vars.sh" ]]; then
+    # shellcheck source=.local/state/nix/profile/etc/profile.d/hm-session-vars.sh
+    source "$XDG_STATE_HOME/nix/profile/etc/profile.d/hm-session-vars.sh"
 fi
 
+# Direnv integration
+if command -v direnv >/dev/null 2>&1; then
+    eval "$(direnv hook bash)"
+fi
+
+# Fzf integration
+if command -v fzf >/dev/null 2>&1; then
+    eval "$(fzf --bash)"
+fi
+
+# Ansible completion
+if command -v register-python-argcomplete >/dev/null 2>&1; then
+    for suffix in "" config console doc galaxy inventory playbook pull vault; do
+        cmd="ansible${suffix:+-$suffix}"
+        if command -v "$cmd" >/dev/null 2>&1; then
+            eval "$(register-python-argcomplete "$cmd")"
+        fi
+    done
+    unset suffix cmd
+fi
+
+# nnn function for cd-on-exit
+n () {
+    [ "${NNNLVL:-0}" -eq 0 ] || { echo "nnn is already running"; return; }
+    export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+    command nnn "$@"
+    [ ! -f "$NNN_TMPFILE" ] || {
+        # This will `cd` into the last directory
+        # shellcheck source=/dev/null
+        source "$NNN_TMPFILE"
+        rm -f -- "$NNN_TMPFILE" >/dev/null
+    }
+}
