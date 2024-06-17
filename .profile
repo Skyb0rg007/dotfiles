@@ -100,7 +100,6 @@ path_append() {
 path_prepend PATH "$HOME/.local/bin"
 path_prepend PATH "$XDG_STATE_HOME/nix/profile/bin"
 path_append  PATH "$XDG_DATA_HOME/cargo/bin"
-path_append  PATH "$XDG_DATA_HOME/elan/bin"
 path_append  PATH "$XDG_DATA_HOME/npm/bin"
 path_append  PATH "$XDG_DATA_HOME/python/bin"
 path_append  PATH "/mnt/c/Program Files/Mozilla Firefox"
@@ -149,8 +148,6 @@ export IRBRC="$XDG_CONFIG_HOME/irb/irbrc"
 #export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java"
 # jupyter
 export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
-# lean
-export ELAN_HOME="$XDG_DATA_HOME/elan"
 # lein
 export LEIN_HOME="$XDG_DATA_HOME/lein"
 # less
