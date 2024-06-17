@@ -56,14 +56,104 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+hexcode_truecolor () {
+    local hex="$1"
+    local r="0x${hex:0:2}" g="0x${hex:2:2}" b="0x${hex:4:2}"
+    printf '\e[38;2;%d;%d;%dm' "$r" "$g" "$b"
+}
+
+## Settings for __git_ps1
+# There are unstaged (*) changes or staged (+) changes
+# shellcheck disable=SC2034
+GIT_PS1_SHOWDIRTYSTATE=yes
+# Something is stashed ($)
+# shellcheck disable=SC2034
+GIT_PS1_SHOWSTASHSTATE=yes
+# A file is untracked (%)
+# shellcheck disable=SC2034
+GIT_PS1_SHOWUNTRACKEDFILES=yes
+# Repo is behind (<), ahead (>), diverged (<>), or up-to-date (=) with upstream
+# shellcheck disable=SC2034
+GIT_PS1_SHOWUPSTREAM=auto
+
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    _color_reset=$'\e[0m'
+    _color_yellow="$(hexcode_truecolor e5c07b)"
+    _color_green="$(hexcode_truecolor 98c379)"
+    _color_white="$(hexcode_truecolor dcdfe4)"
+    _color_cyan="$(hexcode_truecolor 56b6c2)"
+    _color_blue="$(hexcode_truecolor 61afef)"
+    _color_magenta="$(hexcode_truecolor c678dd)"
+    _color_red="$(hexcode_truecolor e06c75)"
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    _color_reset=""
+    _color_yellow=""
+    _color_green=""
+    _color_white=""
+    _color_cyan=""
+    _color_blue=""
+    _color_magenta=""
+    _color_red=""
 fi
+
+_prompt_exit_color="$_color_green"
+_prompt_exit_status=0
+_prompt_in_nix_shell=""
+
+# Include indicator if in a chroot of another system
+PS1='${debian_chroot:+($debian_chroot) }'
+# If in nix shell, include (nix) in cyan
+PS1+='\[${_color_cyan}\]${_prompt_in_nix_shell}\[${_color_reset}\]'
+# user@host in yellow
+PS1+='\[${_color_yellow}\]\u@\h\[${_color_reset}\]'
+# pwd in blue
+PS1+=' \[${_color_blue}\]\w\[${_color_reset}\]'
+# If in git, include (git information) in magenta
+PS1+='\[${_color_magenta}\]$(__git_ps1)\[${_color_reset}\]'
+# Include most recent command exit status
+PS1+='\n\[${_prompt_exit_color}\](${_prompt_exit_status})\[${_color_reset}\]'
+# Prompt in white
+PS1+=' \[${_color_white}\]>\[${_color_reset}\] '
+
+__get_terminal_column() {
+    local oldstty pos
+    exec < /dev/tty
+    oldstty="$(stty -g)"
+    stty raw -echo min 0
+    printf '\e[6n' > /dev/tty
+    IFS=';' read -r -d R -a pos
+    stty "$oldstty"
+    echo "$((pos[1] - 1))"
+}
+
+prompt_command () {
+    _prompt_exit_status="$?"
+    if [[ $_prompt_exit_status = 0 ]]; then
+        _prompt_exit_color="$_color_green"
+    else
+        _prompt_exit_color="$_color_red"
+    fi
+    if [[ $(__get_terminal_column) != 0 ]]; then
+        printf '\e[7m%%\e[m\n'
+    fi
+    if [[ -n $IN_NIX_SHELL ]] || grep -q /nix/store <<<"$PATH"; then
+        _prompt_in_nix_shell="(nix) "
+    else
+        _prompt_in_nix_shell=""
+    fi
+    return "$_prompt_exit_status"
+}
+
+PROMPT_COMMAND="prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
+
+# if [ "$color_prompt" = yes ]; then
+#     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+# else
+#     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+# fi
 unset color_prompt force_color_prompt
 
-# If this is an xterm set the title to user@host:dir
+# If this is an xterm set the title to user@host: dir
 case "$TERM" in
 xterm*|rxvt*)
     PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
