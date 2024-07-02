@@ -38,6 +38,8 @@ Plug 'mcchrish/nnn.vim'          " nnn file manager
 " Plug 'kana/vim-arpeggio'         " chording
 Plug 'github/copilot.vim'        " Copilot support
 " Plug 'sirver/ultisnips'
+Plug 'catppuccin/vim', {'as': 'catppuccin'} " Colorscheme
+Plug 'sonph/onehalf', { 'rtp': 'vim' }
 
 " Ansible
 Plug 'pearofducks/ansible-vim'
@@ -112,8 +114,17 @@ filetype indent on
 filetype plugin on
 set termguicolors
 set background=dark
-colorscheme neodark
-let g:neodark#background = '#202020'
+
+colorscheme onehalfdark
+let g:terminal_ansi_colors = [
+    \ "#282c34", "#e06c75", "#98c379", "#e5c07b",
+    \ "#61afef", "#c678dd", "#56b6c2", "#dcdfe4",
+    \ "#282c34", "#e06c75", "#98c379", "#e5c07b",
+    \ "#61afef", "#c678dd", "#56b6c2", "#dcdfe4",
+    \ ]
+" colorscheme catppuccin_mocha
+" colorscheme neodark
+" let g:neodark#background = '#202020'
 
 " General settings
 set autoindent " Copy indent from current line when starting a new line
@@ -372,7 +383,8 @@ let g:ale_linters = {
     \   'cpp': ['gcc'],
     \   'javascript': ['eslint'],
     \   'haskell': ['stack_build'],
-    \   'lua': ['luac', 'luacheck']
+    \   'lua': ['luac', 'luacheck'],
+    \   'tex': ['chktex', 'proselint', 'cspell']
     \ }
 let g:ale_fixers = {
     \   'haskell': ['trim_whitespace'],
@@ -384,7 +396,7 @@ let g:ale_lua_luac_executable = 'luac5.4'
 set noshowmode
 set showtabline=2
 let g:lightline = {
-    \   'colorscheme': 'neodark',
+    \   'colorscheme': 'onehalfdark',
     \   'active': {
     \     'left': [['mode', 'paste'],
     \              ['readonly', 'filename', 'modified']],
