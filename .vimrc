@@ -40,6 +40,7 @@ Plug 'github/copilot.vim'        " Copilot support
 " Plug 'sirver/ultisnips'
 Plug 'catppuccin/vim', {'as': 'catppuccin'} " Colorscheme
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
+Plug 'christoomey/vim-tmux-navigator'
 
 " Ansible
 Plug 'pearofducks/ansible-vim'
@@ -102,6 +103,9 @@ Plug 'junegunn/vader.vim'
 
 " KMonad
 Plug 'kmonad/kmonad-vim'
+
+" Justfile
+Plug 'NoahTheDuke/vim-just'
 
 call plug#end()
 
@@ -246,6 +250,7 @@ call digraph_set('|<', "\u27e8") " ⟨
 call digraph_set('|>', "\u27e9") " ⟩
 call digraph_set('~>', "\u2933") " ⤳
 call digraph_set('|=', "\u22a8") " ⊨
+call digraph_set('(/', "\u2209") " ∉
 
 " Latin Superscript Small Letters (TODO: Finish the set)
 " ᵈ ⁱ ᵏ ⁿ ᵖ ʳ ᵗ ˣ
@@ -362,6 +367,15 @@ call digraph_setlist(
 "--- Plugin settings ---
 
 let g:copilot_enabled = v:false
+
+" Use the <C-W> + motion bindings instead of the ctrl+motion defaults
+" let g:tmux_navigator_no_mappings = v:true
+let g:tmux_navigator_save_on_switch = 1 " Write current buffer
+
+" nnoremap <silent> <c-w>h :<C-U>TmuxNavigateLeft<cr>
+" nnoremap <silent> <c-w>j :<C-U>TmuxNavigateDown<cr>
+" nnoremap <silent> <c-w>k :<C-U>TmuxNavigateUp<cr>
+" nnoremap <silent> <c-w>l :<C-U>TmuxNavigateRight<cr>
 
 " let g:UltiSnipsJumpOrExpandTrigger = "<tab>"
 " let g:UltiSnipsListSnippets = "<c-q>"
