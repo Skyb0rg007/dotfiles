@@ -40,10 +40,26 @@ Plug 'github/copilot.vim'        " Copilot support
 " Plug 'sirver/ultisnips'
 Plug 'catppuccin/vim', {'as': 'catppuccin'} " Colorscheme
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
-Plug 'christoomey/vim-tmux-navigator'
+" Plug 'christoomey/vim-tmux-navigator'
+Plug 'wakatime/vim-wakatime'
+
+" Direnv
+Plug 'direnv/direnv.vim'
+
+" Todo.txt
+Plug 'freitass/todo.txt-vim'
+
+" klog
+Plug '73/vim-klog'
+
+" Recfiles
+Plug 'zaid/vim-rec'
 
 " Ansible
 Plug 'pearofducks/ansible-vim'
+
+" Beancount
+Plug 'nathangrigg/vim-beancount'
 
 " LISP
 Plug 'guns/vim-sexp'             " S-Expression handling
@@ -108,6 +124,9 @@ Plug 'kmonad/kmonad-vim'
 Plug 'NoahTheDuke/vim-just'
 
 call plug#end()
+
+" Distributed packages
+packadd! editorconfig
 
 let g:skip_loading_mswin = 1
 
@@ -174,8 +193,14 @@ set foldlevelstart=99
 set foldcolumn=0
 
 " Cursor is a line in insert mode and a block in normal mode
-let &t_SI = "\e[6 q"
+let &t_SI = "\e[5 q"
 let &t_EI = "\e[2 q"
+if exists('$TMUX')
+    " let &t_SI = "\e]50;CursorShape=1\x7"
+    " let &t_EI = "\e]50;CursorShape=0\x7"
+    let &t_SI = "\ePtmux;\e" . &t_SI . "\e\\"
+    let &t_EI = "\ePtmux;\e" . &t_EI . "\e\\"
+endif
 
 " Show the cursor line in normal mode
 set cursorline
@@ -193,7 +218,7 @@ let g:awk_is_gawk = 1
 
 "--- Mappings ---
 
-" <C-L> clears search results
+" <C-L> clears search results TODO: Remap this
 nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
 " Y yanks until end-of-line, like C and D
 nnoremap Y y$
@@ -369,8 +394,9 @@ call digraph_setlist(
 let g:copilot_enabled = v:false
 
 " Use the <C-W> + motion bindings instead of the ctrl+motion defaults
-" let g:tmux_navigator_no_mappings = v:true
+" let g:tmux_navigator_no_mappings = 1
 let g:tmux_navigator_save_on_switch = 1 " Write current buffer
+let g:tmux_navigator_no_wrap = 1
 
 " nnoremap <silent> <c-w>h :<C-U>TmuxNavigateLeft<cr>
 " nnoremap <silent> <c-w>j :<C-U>TmuxNavigateDown<cr>
