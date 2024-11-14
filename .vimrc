@@ -182,9 +182,13 @@ set splitright " Split below and to the right
 set t_Co=256 " Number of colors
 set visualbell " Disable alarm
 set path=.,/usr/include/,/usr/include/x86_64-linux-gnu/,,
-set dictionary+=/usr/share/dict/words
+if !empty($WORDLIST) && filereadable($WORDLIST)
+    set dictionary+=$WORDLIST
+else
+    set dictionary+=/usr/share/dict/words
+endif
 set spelllang=en_us
-set relativenumber
+set number
 
 " Folds
 set foldmethod=indent
