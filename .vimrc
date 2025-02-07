@@ -43,6 +43,12 @@ Plug 'sonph/onehalf', { 'rtp': 'vim' }
 " Plug 'christoomey/vim-tmux-navigator'
 Plug 'wakatime/vim-wakatime'
 
+" Jsonnet
+Plug 'google/vim-jsonnet'
+
+" Alloy
+Plug 'grafana/vim-alloy'
+
 " Direnv
 Plug 'direnv/direnv.vim'
 
@@ -189,6 +195,7 @@ else
 endif
 set spelllang=en_us
 set number
+set nojoinspaces " Only one space after punctuation with joins
 
 " Folds
 set foldmethod=indent
