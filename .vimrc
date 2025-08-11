@@ -1,6 +1,5 @@
 set nocompatible " Disable Vi compatibility
 
-
 " Hide vim's generated files in XDG directories
 if empty($XDG_CACHE_HOME) | let $XDG_CACHE_HOME = $HOME.'/.cache'       | endif
 if empty($XDG_STATE_HOME) | let $XDG_STATE_HOME = $HOME.'/.local/state' | endif
@@ -128,6 +127,9 @@ Plug 'kmonad/kmonad-vim'
 
 " Justfile
 Plug 'NoahTheDuke/vim-just'
+
+" Mustache
+Plug 'mustache/vim-mustache-handlebars'
 
 call plug#end()
 
@@ -551,7 +553,7 @@ function! g:CoqtailHighlight()
 endfunction
 
 " VimTex
-let g:vimtex_view_general_viewer = 'okular'
-let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
+" let g:vimtex_view_general_viewer = 'okular'
+" let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
 let g:vimtex_complete_enabled = 0
 
