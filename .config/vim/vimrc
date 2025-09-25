@@ -3,6 +3,7 @@ set nocompatible " Disable Vi compatibility
 " Hide vim's generated files in XDG directories
 if empty($XDG_CACHE_HOME) | let $XDG_CACHE_HOME = $HOME.'/.cache'       | endif
 if empty($XDG_STATE_HOME) | let $XDG_STATE_HOME = $HOME.'/.local/state' | endif
+if empty($XDG_DATA_HOME)  | let $XDG_DATA_HOME = $HOME.'/.local/share'  | endif
 set backupdir=$XDG_STATE_HOME/vim/backup | call mkdir(&backupdir, 'p')
 set directory=$XDG_STATE_HOME/vim/swap   | call mkdir(&directory, 'p')
 set undodir=$XDG_STATE_HOME/vim/undo     | call mkdir(&undodir,   'p')
@@ -10,10 +11,12 @@ set viewdir=$XDG_STATE_HOME/vim/view     | call mkdir(&viewdir,   'p')
 set viminfofile=$XDG_STATE_HOME/vim/viminfo
 
 " (OCaml) ocp-indent
-set runtimepath^=$XDG_DATA_HOME/opam/default/share/ocp-indent/vim
+if filereadable($XDG_DATA_HOME.'/opam/default/share/ocp-indent/vim')
+    set runtimepath^=$XDG_DATA_HOME/opam/default/share/ocp-indent/vim
+endif
 
 " Vim Plug
-call plug#begin($HOME.'/.vim/plugged')
+call plug#begin($XDG_STATE_HOME.'/vim/plugged')
 
 " Plugins for all filetypes
 Plug 'dense-analysis/ale'        " Linter
