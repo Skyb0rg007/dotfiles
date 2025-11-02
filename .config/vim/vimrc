@@ -111,7 +111,10 @@ Plug 'vmchale/dhall-vim', { 'for': 'dhall' }
 Plug 'elm-tooling/elm-vim', { 'for': 'elm' }
 
 " Markdown
-Plug 'iamcco/markdown-preview.nvim', {'do': 'cd app && npm install'}
+"Plug 'iamcco/markdown-preview.nvim', {'do': 'cd app && npm install'}
+Plug 'iamcco/markdown-preview.nvim', {
+            \ 'do': { -> mkdp#util#install() },
+            \ 'for': ['markdown', 'vim-plug']}
 
 " Standard ML
 Plug 'Skyb0rg007/vim-better-sml'

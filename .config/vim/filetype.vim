@@ -7,4 +7,8 @@ augroup filetypedetect
     autocmd! BufRead,BufNewFile *.bqn             setfiletype bqn
     autocmd! BufRead,BufNewFile *.agda            setfiletype agda
     autocmd! BufRead,BufNewFile *.elf             setfiletype twelf
+    " Podman Quadlet
+    autocmd! BufRead,BufNewFile *.container,*.volume,*.network,*.kube,*.image,*.build,*.pod,*.artifact setfiletype systemd
+    " JSON User Records
+    autocmd! BufRead,BufNewFile .identity         setfiletype json
 augroup END
