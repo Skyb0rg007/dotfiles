@@ -1,0 +1,42 @@
+{
+  "flakes": [
+    {
+      "exact": true,
+      "from": {
+        "id": "skyenet",
+        "type": "indirect"
+      },
+      "to": {
+        "owner": "Skyb0rg007",
+        "repo": "packages",
+        "path": "NixOS",
+        "type": "github"
+      }
+    },
+    {
+      "exact": true,
+      "from": {
+        "id": "sml-nix",
+        "type": "indirect"
+      },
+      "to": {
+        "rev": "main",
+        "type": "git",
+        "url": "ssh://git@github.com/Skyb0rg007/sml-nix.git"
+      }
+    },
+    {
+      "exact": true,
+      "from": {
+        "id": "forester",
+        "type": "indirect"
+      },
+      "to": {
+        "owner": "~jonsterling",
+        "repo": "ocaml-forester",
+        "type": "sourcehut"
+      }
+    }
+  ],
+  "version": 2
+}
