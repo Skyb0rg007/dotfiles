@@ -152,7 +152,9 @@ filetype plugin on
 set termguicolors
 set background=dark
 
-colorscheme onehalfdark
+if !empty(globpath(&rtp, 'colors/onehalfdark.vim'))
+    colorscheme onehalfdark
+endif
 let g:terminal_ansi_colors = [
     \ "#282c34", "#e06c75", "#98c379", "#e5c07b",
     \ "#61afef", "#c678dd", "#56b6c2", "#dcdfe4",
@@ -443,7 +445,8 @@ let g:ale_linters = {
     \   'javascript': ['eslint'],
     \   'haskell': ['stack_build'],
     \   'lua': ['luac', 'luacheck'],
-    \   'tex': ['chktex', 'proselint', 'cspell']
+    \   'tex': ['chktex', 'proselint', 'cspell'],
+    \   'rust': ['analyzer', 'cargo']
     \ }
 let g:ale_fixers = {
     \   'haskell': ['trim_whitespace'],
@@ -562,4 +565,12 @@ endfunction
 " let g:vimtex_view_general_viewer = 'okular'
 " let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
 let g:vimtex_complete_enabled = 0
+
+" Direnv
+let g:direnv_auto = 0
+
+" vim-better-sml
+if !executable('mlton')
+    let g:sml_mlton_executable = 'true'
+endif
 

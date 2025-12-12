@@ -1,4 +1,6 @@
 
-" Remove Roman numeral support
-SpeedDatingFormat! '%v'
-SpeedDatingFormat! '%^v'
+if exists('*SpeedDatingFormat')
+    " Remove Roman numeral support
+    SpeedDatingFormat! '%v'
+    SpeedDatingFormat! '%^v'
+endif
