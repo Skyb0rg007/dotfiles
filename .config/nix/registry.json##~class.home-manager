@@ -28,7 +28,7 @@
     {
       "exact": true,
       "from": {
-        "id": "nix-sml",
+        "id": "sml-nix",
         "type": "indirect"
       },
       "to": {
