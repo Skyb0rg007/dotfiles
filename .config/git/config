@@ -1,0 +1,59 @@
+
+# Basic settings
+[user]
+	name = Skye Soss
+	email = skye@soss.website
+[init]
+	defaultBranch = main
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+
+# Code signing
+[user]
+	signingKey = ~/.config/ssh/id_ed25519.pub
+[commit]
+	gpgsign = true
+[push]
+	# Signed pushes are cool but not supported by GitHub
+	gpgsign = false
+[tag]
+	gpgsign = true
+[core]
+	sshCommand = ssh
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = ssh-keygen
+	allowedSignersFile = ~/.config/ssh/allowed_signers
+	revocationFile = ~/.config/ssh/revoked
+
+# git send-email
+# [credential]
+# 	helper = keepassxc --git-groups
+[sendemail]
+	identity = zoho
+	confirm = always
+[sendemail "gmail"]
+	smtpServer = smtp.gmail.com
+	smtpUser = skyler.soss@gmail.com
+	smtpEncryption = tls
+	smtpServerPort = 587
+	# smtpPass = ...
+	suppressCC = self
+[sendemail "zoho"]
+	smtpServer = smtp.zohomail.com
+	smtpUser = skye@soss.website
+	smtpEncryption = tls
+	smtpServerPort = 587
+	# smtpPass = ...
+	suppressCC = self
+
+# git instaweb
+[instaweb]
+    browser = xdg-open
+	httpd = lighttpd -f
+	local = true
+    port = 4321
+
