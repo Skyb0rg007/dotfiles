@@ -10,6 +10,9 @@ export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.local/state}"
 export EDITOR=vim
 export VISUAL="$EDITOR"
 
+# bash
+export BASH_HISTORY="$XDG_STATE_HOME/bash/history"
+mkdir -p "$XDG_STATE_HOME/bash"
 # cargo (rust)
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 # docker
@@ -25,6 +28,8 @@ export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 # kubectl
 export KUBECONFIG="$XDG_CONFIG_HOME/kube"
 export KUBECACHEDIR="$XDG_CACHE_HOME/kube"
+# minikube
+export MINIKUBE_HOME="$XDG_DATA_HOME/minikube"
 # minio-client
 export MC_CONFIG_DIR="$XDG_CONFIG_HOME/minio-client"
 # nodejs
@@ -46,6 +51,8 @@ export RAD_HOME="$XDG_DATA_HOME/radicle"
 # export RAD_SOCKET="${XDG_RUNTIME_DIR:-/run/user/$UID}/radicle-node/control.sock"
 # raku
 export RAKUDO_HIST="$XDG_STATE_HOME/rakudo/history"
+# readline
+export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
 # rlwrap
 export RLWRAP_HOME="$XDG_STATE_HOME/rlwrap"
 # screen
