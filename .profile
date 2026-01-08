@@ -49,6 +49,9 @@ export OPAMROOT="$XDG_DATA_HOME/opam"
 export OPENSSL_CONF="$XDG_CONFIG_HOME/openssl/openssl.conf"
 # php
 export PHP_HISTFILE="$XDG_STATE_HOME/php/history"
+# podman
+export CONTAINER_HOST="unix:/run/podman/podman.sock"
+export PODMAN_USERNS="auto"
 # python
 export PYTHONCACHEPREFIX="$XDG_CACHE_HOME/python"
 export PYTHON_HISTORY="$XDG_STATE_HOME/python/history"
