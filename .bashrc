@@ -10,12 +10,14 @@ HISTFILE="$XDG_STATE_HOME/bash/history"; mkdir -p "$XDG_STATE_HOME/bash"
 HISTFILESIZE=1000
 HISTIGNORE="exit"
 HISTSIZE=1000
+MAILCHECK=0
 
 shopt -s histappend
 shopt -s checkwinsize
 shopt -s extglob
 shopt -s globstar
 shopt -s checkjobs
+shopt -s hostcomplete
 
 set -o ignoreeof
 
@@ -111,6 +113,7 @@ fi
 PS1+='\n\[$_prompt_exit_color\]($_prompt_exit_status)\[$_color_reset\]'
 PS1+=' \[$_color_white\]>\[$_color_reset\] '
 
+alias ls='ls --color=auto'
 alias l='ls -C'
 alias la='ls --almost-all'
 alias ll='ls --almost-all --classify -l'
