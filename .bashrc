@@ -118,6 +118,14 @@ alias l='ls -C'
 alias la='ls --almost-all'
 alias ll='ls --almost-all --classify -l'
 
+if command -v adb >/dev/null && [[ -v ANDROID_USER_HOME ]]; then
+    alias adb='HOME="$ANDROID_USER_HOME" adb'
+fi
+
+if command -v plocate >/dev/null; then
+    alias locate='plocate'
+fi
+
 # Helpers
 mkcd () {
     # shellcheck disable=SC2164
@@ -145,6 +153,19 @@ fi
 # fzf
 if command -v fzf >/dev/null && [[ :$SHELLOPTS: =~ :(vi|emacs): ]]; then
     eval "$(fzf --bash)"
+fi
+
+# oci-cli
+if command -v oci >/dev/null; then
+    _oci_completion() {
+        mapfile -t COMPREPLY < <(
+            env COMP_WORDS="${COMP_WORDS[*]}" \
+                COMP_CWORD="$COMP_CWORD" \
+                _OCI_COMPLETE="complete" \
+                "$1")
+        return 0
+    }
+    complete -F _oci_completion -o default oci
 fi
 
 # gpg
