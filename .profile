@@ -9,9 +9,14 @@ export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.local/state}"
 # editor
 export EDITOR=vim
 export VISUAL="$EDITOR"
+export SUDO_EDITOR="$EDITOR"
 
+# android
+export ANDROID_HOME="$XDG_DATA_HOME/android/sdk"
+export ANDROID_USER_HOME="$XDG_DATA_HOME/android"
+export ANDROID_SDK_HOME="$XDG_DATA_HOME/android"
 # bash
-export BASH_HISTORY="$XDG_STATE_HOME/bash/history"
+export HISTFILE="$XDG_STATE_HOME/bash/history"
 mkdir -p "$XDG_STATE_HOME/bash"
 # cargo (rust)
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
@@ -25,6 +30,8 @@ export GOMODCACHE="$XDG_CACHE_HOME/go/mod"
 export GOPATH="$XDG_DATA_HOME/go"
 # gpg
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+# java
+export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java"
 # kubectl
 export KUBECONFIG="$XDG_CONFIG_HOME/kube"
 export KUBECACHEDIR="$XDG_CACHE_HOME/kube"
@@ -55,6 +62,8 @@ export RAKUDO_HIST="$XDG_STATE_HOME/rakudo/history"
 export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
 # rlwrap
 export RLWRAP_HOME="$XDG_STATE_HOME/rlwrap"
+# rustup
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 # screen
 export SCREENRC="$XDG_CONFIG_HOME/screen/config"
 # sigstore
