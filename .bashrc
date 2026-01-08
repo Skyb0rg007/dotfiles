@@ -43,7 +43,7 @@ case "$TERM" in
     xterm-color|xterm-kitty|*-256color) color_prompt=yes
 esac
 
-if command -v tput >&/dev/null && tput setaf 1 >&/dev/null; then
+if command -v tput &>/dev/null && tput setaf 1 &>/dev/null; then
     color_prompt=yes
 fi
 
@@ -92,7 +92,7 @@ prompt_command () {
 }
 
 # source __git_ps1
-mapfile -td : _data_dirs <<<"$XDG_DATA_DIRS"
+IFS=: read -ra _data_dirs <<<"$XDG_DATA_DIRS"
 for _data_dir in "${_data_dirs[@]}"; do
     if [[ -e $_data_dir/git/contrib/completion/git-prompt.sh ]]; then
         # shellcheck source=/run/current-system/sw/share/git/contrib/completion/git-prompt.sh
@@ -104,10 +104,10 @@ unset _data_dir _data_dirs
 
 PROMPT_COMMAND="prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
 PS1='\[$_color_cyan\]$_prompt_prefix\[$_color_reset\]'
-PS1+='\[$_color_yellow\]\u@\h\[$_color_reset\]'
-PS1+=' \[$_color_blue\]\w\[$_color_reset\]'
+PS1+='\[${_color_yellow}\]\u@\h\[$_color_reset\]'
+PS1+=' \[${_color_blue}\]\w\[$_color_reset\]'
 PS1+='\[$_color_red\]$_prompt_jobs\[$_color_reset\]'
-if declare -pf __git_ps1 >&/dev/null; then
+if declare -pf __git_ps1 &>/dev/null; then
     PS1+='\[$_color_magenta\]$(__git_ps1)\[$_color_reset\]'
 fi
 PS1+='\n\[$_prompt_exit_color\]($_prompt_exit_status)\[$_color_reset\]'
