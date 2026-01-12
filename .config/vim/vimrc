@@ -574,3 +574,25 @@ if !executable('mlton')
     let g:sml_mlton_executable = 'true'
 endif
 
+
+function! s:block_bogus_file_write(target) abort
+  if empty(a:target)
+    return
+  endif
+  let l:base = fnamemodify(a:target, ':t')
+
+  if l:base ==# "'"
+    let l:ans = confirm("Warning: writing a file name \"'\". Continue?", "&Yes\n&No", 2)
+    if l:ans != 1
+      return
+    endif
+    let l:bang = (exists('v:cmdbang') && v:cmdbang ==# '!') ? '!' : ''
+    let l:opts = exists('v:cmdarg') ? v:cmdarg : ''
+    execute 'noautocmd write' . l:bang . (empty(l:opts) ? '' : ' ' . l:opts) . ' ' . fnameescape(a:target)
+  endif
+endfunction
+
+augroup block_bogus_file_write
+  autocmd!
+  autocmd BufWriteCmd ' call s:block_bogus_file_write(expand('<afile>'))
+augroup END
