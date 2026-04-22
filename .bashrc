@@ -151,8 +151,21 @@ if command -v direnv >/dev/null; then
 fi
 
 # envoluntary
-if command -v envoluntary >/dev/null; then
-    eval "$(envoluntary shell hook bash)"
+if _envoluntary_path="$(command -v envoluntary)"; then
+    # eval "$(envoluntary shell hook bash)"
+    _envoluntary_hook() {
+        local prev_status=$?
+        local vars
+        vars="$("$_envoluntary_path" shell export bash)"
+        trap -- '' SIGINT
+        eval "$vars"
+        trap - SIGINT
+        return $prev_status
+    }
+    if [[ ";${PROMPT_COMMAND[*]:-};" != *";_envoluntary_hook;"* ]]; then
+        # envoluntary should go before prompt_command
+        PROMPT_COMMAND=(_envoluntary_hook "${PROMPT_COMMAND[@]}")
+    fi
 fi
 
 # fzf
