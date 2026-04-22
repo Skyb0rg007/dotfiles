@@ -48,7 +48,7 @@ export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config"
 # ocaml
 export OPAMROOT="$XDG_DATA_HOME/opam"
 # openssl
-export OPENSSL_CONF="$XDG_CONFIG_HOME/openssl/openssl.conf"
+export OPENSSL_CONF="$XDG_CONFIG_HOME/openssl/openssl.cnf"
 # php
 export PHP_HISTFILE="$XDG_STATE_HOME/php/history"
 # podman
