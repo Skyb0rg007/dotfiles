@@ -83,12 +83,12 @@ prompt_command () {
     else
         _prompt_exit_color="$_color_red"
     fi
-    if [[ $TMPDIR =~ ^/tmp/nix-shell ]]; then
-        if [[ -n $ENVOLUNTARY_ENV_STATE ]]; then
-            _prompt_prefix="(env) "
-        else
-            _prompt_prefix="(nix) "
-        fi
+    if [[ -n $DIRENV_DIR ]]; then
+        _prompt_prefix="(dir) "
+    elif [[ -n $ENVOLUNTARY_ENV_STATE ]]; then
+        _prompt_prefix="(env) "
+    elif [[ $TMPDIR =~ ^/tmp/nix-shell ]]; then
+        _prompt_prefix="(nix) "
     elif [[ $SHLVL -gt 1 ]]; then
         _prompt_prefix="(sh) "
     else
@@ -106,6 +106,13 @@ for _data_dir in "${_data_dirs[@]}"; do
     fi
 done
 unset _data_dir _data_dirs
+
+# __git_ps1 configuration
+GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWSTASHSTATE=1
+GIT_PS1_SHOWUNTRACKEDFILES=1
+GIT_PS1_SHOWUPSTREAM=1
+GIT_PS1_SHOWCONFLICTSTATE=1
 
 PROMPT_COMMAND+=(prompt_command)
 PS1='\[$_color_cyan\]$_prompt_prefix\[$_color_reset\]'
