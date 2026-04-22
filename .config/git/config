@@ -58,3 +58,5 @@
 	local = true
     port = 4321
 
+[http]
+	cookieFile = ""
