@@ -39,6 +39,19 @@
     {
         "exact": true,
         "from": {
+            "id": "nixpkgs-master",
+            "type": "indirect"
+        },
+        "to": {
+            "type": "github",
+            "owner": "NixOS",
+            "repo": "nixpkgs",
+            "ref": "master"
+        }
+    },
+    {
+        "exact": true,
+        "from": {
             "id": "nixpkgs-unstable",
             "type": "indirect"
         },
