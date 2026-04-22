@@ -14,12 +14,13 @@
 [user]
 	signingKey = ~/.config/ssh/id_ed25519.pub
 [commit]
-	gpgsign = true
+	gpgSign = true
 [push]
-	# Signed pushes are cool but not supported by GitHub
-	gpgsign = false
+	# Signed pushes are cool but not commonly supported
+    # Enable this per-remote to avoid the general warning
+	gpgSign = false
 [tag]
-	gpgsign = true
+	gpgSign = true
 [core]
 	sshCommand = ssh
 [gpg]
