@@ -5,6 +5,8 @@
 
 ## Bash settings
 
+alias vim=nvim
+
 HISTCONTROL=ignoreboth
 HISTFILE="$XDG_STATE_HOME/bash/history"; mkdir -p "$XDG_STATE_HOME/bash"
 HISTFILESIZE=1000
