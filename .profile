@@ -44,7 +44,7 @@ export MC_CONFIG_DIR="$XDG_CONFIG_HOME/minio-client"
 # nodejs
 export NODE_REPL_HISTORY="$XDG_STATE_HOME/node/history"
 # npm
-export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config"
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config/npmrc"
 # ocaml
 export OPAMROOT="$XDG_DATA_HOME/opam"
 # openssl
