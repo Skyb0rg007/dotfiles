@@ -15,13 +15,25 @@
     {
       "exact": true,
       "from": {
-        "id": "skyenet",
+        "id": "skyenet-cloud",
         "type": "indirect"
       },
       "to": {
         "owner": "Skyb0rg007",
         "repo": "packages",
         "type": "github",
+        "dir": "NixOS"
+      }
+    },
+    {
+      "exact": true,
+      "from": {
+        "id": "skyenet",
+        "type": "indirect"
+      },
+      "to": {
+        "type": "git",
+        "url": "/home/skye/Projects/packages",
         "dir": "NixOS"
       }
     },
