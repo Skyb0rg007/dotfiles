@@ -35,6 +35,8 @@ export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java"
 # kubectl
 export KUBECONFIG="$XDG_CONFIG_HOME/kube"
 export KUBECACHEDIR="$XDG_CACHE_HOME/kube"
+# lean
+export ELAN_HOME="$XDG_DATA_HOME/elan"
 # minikube
 export MINIKUBE_HOME="$XDG_DATA_HOME/minikube"
 # minio-client
@@ -88,4 +90,9 @@ export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 case ":${PATH:=$HOME/.local/bin}:" in
 	*:"$HOME/.local/bin":*) ;;
 	*) PATH="$HOME/.local/bin:$PATH" ;;
+esac
+
+case ":$PATH:" in
+	*:"$ELAN_HOME/bin":*) ;;
+	*) PATH="$PATH:$ELAN_HOME/bin" ;;
 esac
