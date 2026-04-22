@@ -23,6 +23,9 @@ shopt -s hostcomplete
 
 set -o ignoreeof
 
+# Use an array for PROMPT_COMMAND
+declare -a PROMPT_COMMAND
+
 # Prompt
 __get_terminal_column () {
     local oldstty pos
@@ -104,7 +107,7 @@ for _data_dir in "${_data_dirs[@]}"; do
 done
 unset _data_dir _data_dirs
 
-PROMPT_COMMAND="prompt_command${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
+PROMPT_COMMAND+=(prompt_command)
 PS1='\[$_color_cyan\]$_prompt_prefix\[$_color_reset\]'
 PS1+='\[${_color_yellow}\]\u@\h\[$_color_reset\]'
 PS1+=' \[${_color_blue}\]\w\[$_color_reset\]'
