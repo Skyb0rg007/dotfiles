@@ -71,8 +71,11 @@ export RLWRAP_HOME="$XDG_STATE_HOME/rlwrap"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 # screen
 export SCREENRC="$XDG_CONFIG_HOME/screen/config"
+export SCREENDIR="$XDG_RUNTIME_DIR/screen"
 # sigstore
 export TUF_ROOT="$XDG_DATA_HOME/sigstore/root"
+# sqlite
+export SQLITE_HISTORY="$XDG_STATE_HOME/sqlite_history"
 # stack
 export STACK_XDG="1"
 # step-cli
@@ -90,6 +93,11 @@ export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 case ":${PATH:=$HOME/.local/bin}:" in
 	*:"$HOME/.local/bin":*) ;;
 	*) PATH="$HOME/.local/bin:$PATH" ;;
+esac
+
+case ":$PATH:" in
+	*:"$GOPATH/bin":*) ;;
+	*) PATH="$PATH:$GOPATH/bin" ;;
 esac
 
 case ":$PATH:" in
