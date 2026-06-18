@@ -1,14 +1,21 @@
 experimental-features = nix-command flakes dynamic-derivations ca-derivations recursive-nix
-# experimental-features = nix-command flakes
 use-xdg-base-directories = true
-substituters = https://cache.nixos.org
-trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
 
+# nix-community
 extra-substituters = https://nix-community.cachix.org
 extra-trusted-public-keys = nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
 
+# skyenet
 extra-substituters = https://skyenet.cachix.org
 extra-trusted-public-keys = skyenet.cachix.org-1:Pf1Kzvduw4vFW0jGH3Vvaxkv8RYk2EK5LyPzhpYBI5s=
 
+# 3cps
+extra-substituters = https://3cps.cachix.org
+extra-trusted-public-keys = 3cps.cachix.org-1:S6FDpA2xwOh5siFi/1cJzt8ie6f5LZzoVeGppx3i+Jg=
+
+# forester
 # extra-substituters = https://forester.cachix.org
 # extra-trusted-public-keys = forester.cachix.org-1:pErGVVci7kZWxxcbQ/To8Lvqp6nVTeyPf0efJxbrQDM=
+
+substituters = https://cache.nixos.org
+trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
