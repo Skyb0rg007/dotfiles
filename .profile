@@ -1,106 +1,14 @@
 # ~/.profile - initialize the shell environment
 # This should mostly be limited to setting environment variables
 
-export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
-export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
-export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
-export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+# This configuration is now in
+# ~/.config/environment.d/ and ~/.config/user-tmpfiles.d/
 
-# editor
-export EDITOR=vim
-export VISUAL="$EDITOR"
-export SUDO_EDITOR="$EDITOR"
-
-# android
-export ANDROID_HOME="$XDG_DATA_HOME/android/sdk"
-export ANDROID_USER_HOME="$XDG_DATA_HOME/android"
-export ANDROID_SDK_HOME="$XDG_DATA_HOME/android"
-# bash
-export HISTFILE="$XDG_STATE_HOME/bash/history"
-mkdir -p "$XDG_STATE_HOME/bash"
-# cargo (rust)
-export CARGO_HOME="$XDG_DATA_HOME/cargo"
-# docker
-export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
-# gforth
-export GFORTHHIST="$XDG_STATE_HOME/gforth/history"
-# golang
-export GOCACHE="$XDG_CACHE_HOME/go/build"
-export GOMODCACHE="$XDG_CACHE_HOME/go/mod"
-export GOPATH="$XDG_DATA_HOME/go"
-# gpg
-export GNUPGHOME="$XDG_DATA_HOME/gnupg"
-# java
-export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java"
-# kubectl
-export KUBECONFIG="$XDG_CONFIG_HOME/kube"
-export KUBECACHEDIR="$XDG_CACHE_HOME/kube"
-# lean
-export ELAN_HOME="$XDG_DATA_HOME/elan"
-# minikube
-export MINIKUBE_HOME="$XDG_DATA_HOME/minikube"
-# minio-client
-export MC_CONFIG_DIR="$XDG_CONFIG_HOME/minio-client"
-# nodejs
-export NODE_REPL_HISTORY="$XDG_STATE_HOME/node/history"
-# npm
-export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config/npmrc"
-# ocaml
-export OPAMROOT="$XDG_DATA_HOME/opam"
-# openssl
-export OPENSSL_CONF="$XDG_CONFIG_HOME/openssl/openssl.cnf"
-# php
-export PHP_HISTFILE="$XDG_STATE_HOME/php/history"
-# podman
-export CONTAINER_HOST="unix:/run/podman/podman.sock"
-export PODMAN_USERNS="auto"
-# python
-export PYTHONCACHEPREFIX="$XDG_CACHE_HOME/python"
-export PYTHON_HISTORY="$XDG_STATE_HOME/python/history"
-export PYTHONUSERBASE="$XDG_DATA_HOME/python"
-# radicle
-export RAD_HOME="$XDG_DATA_HOME/radicle"
-# export RAD_SOCKET="${XDG_RUNTIME_DIR:-/run/user/$UID}/radicle-node/control.sock"
-# raku
-export RAKUDO_HIST="$XDG_STATE_HOME/rakudo/history"
-# readline
-export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
-# rlwrap
-export RLWRAP_HOME="$XDG_STATE_HOME/rlwrap"
-# rustup
-export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
-# screen
-export SCREENRC="$XDG_CONFIG_HOME/screen/config"
-export SCREENDIR="$XDG_RUNTIME_DIR/screen"
-# sigstore
-export TUF_ROOT="$XDG_DATA_HOME/sigstore/root"
-# sqlite
-export SQLITE_HISTORY="$XDG_STATE_HOME/sqlite_history"
-# stack
-export STACK_XDG="1"
-# step-cli
-export STEPPATH="$XDG_DATA_HOME/step"
-# tmux
-export TMUX_TMPDIR="$XDG_RUNTIME_DIR"
-# w3m
-export W3M_DIR="$XDG_DATA_HOME/w3m"
-# wakatime
-export WAKATIME_HOME="$XDG_DATA_HOME/wakatime"
-mkdir -p "$WAKATIME_HOME"
-# wget
-export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
-
-case ":${PATH:=$HOME/.local/bin}:" in
-	*:"$HOME/.local/bin":*) ;;
-	*) PATH="$HOME/.local/bin:$PATH" ;;
-esac
-
-case ":$PATH:" in
-	*:"$GOPATH/bin":*) ;;
-	*) PATH="$PATH:$GOPATH/bin" ;;
-esac
-
-case ":$PATH:" in
-	*:"$ELAN_HOME/bin":*) ;;
-	*) PATH="$PATH:$ELAN_HOME/bin" ;;
-esac
+for dir in /run/current-system/sw /usr; do
+    gen="$dir/lib/systemd/user-environment-generators/30-systemd-environment-d-generator"
+    if [ -x "$gen" ]; then
+        eval "$("$gen" | sed 's/^/export /')"
+        break
+    fi
+done
+unset dir gen

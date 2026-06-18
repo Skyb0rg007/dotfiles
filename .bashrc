@@ -3,6 +3,9 @@
 # Only run in interactive shells
 [[ $- == *i* ]] || return
 
+# shellcheck source=/home/skye/.profile
+source ~/.profile
+
 ## Bash settings
 
 alias vim=nvim
