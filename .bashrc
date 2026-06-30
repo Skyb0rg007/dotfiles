@@ -166,10 +166,12 @@ if _envoluntary_path="$(command -v envoluntary)"; then
     _envoluntary_hook() {
         local prev_status=$?
         local vars
-        vars="$("$_envoluntary_path" shell export bash)"
-        trap -- '' SIGINT
-        eval "$vars"
-        trap - SIGINT
+        if [ -x "$_envoluntary_path" ]; then
+            vars="$("$_envoluntary_path" shell export bash)"
+            trap -- '' SIGINT
+            eval "$vars"
+            trap - SIGINT
+        fi
         return $prev_status
     }
     if [[ ";${PROMPT_COMMAND[*]:-};" != *";_envoluntary_hook;"* ]]; then
