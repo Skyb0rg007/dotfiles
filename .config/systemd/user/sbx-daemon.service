@@ -1,0 +1,17 @@
+[Unit]
+Description=Docker Sandboxes daemon
+Documentation=https://docs.docker.com/ai/sandboxes/
+
+[Service]
+ExecSearchPath=%S/nix/profile/bin:/run/current-system/sw/bin
+ExecStart=sbx daemon start
+ExecStop=sbx daemon stop
+Restart=no
+
+ConfigurationDirectory=sandboxes
+ConfigurationDirectoryMode=0700
+StateDirectory=sandboxes
+BindPaths=%D/sandboxes
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,57 @@
+[Unit]
+Description=Radicle Node
+Documentation=https://radicle.xyz/guides
+Documentation=man:radicle-node(1)
+ConditionPathExists=%D/radicle/keys/radicle
+ConditionPathExists=%D/radicle/keys/radicle.pub
+
+[Service]
+ExecSearchPath=%S/nix/profile/bin:/run/current-system/sw/bin
+ExecStart=radicle-node --log-level info --log-logger systemd
+KillMode=process
+Restart=no
+RuntimeDirectory=radicle
+StateDirectory=radicle
+# These may not be necessary due to the environment.d file
+Environment=RAD_HOME=%D/radicle
+Environment=RAD_SOCKET=%t/radicle/control.sock
+#ImportCredential=dev.radicle.node.secret
+#ImportCredential=dev.radicle.node.passphrase
+ImportCredential=xyz.radicle.node.passphrase
+
+BindPaths=%D/radicle/cobs
+BindPaths=%D/radicle/node
+BindPaths=%D/radicle/storage
+BindReadOnlyPaths=%D/radicle/config.json
+BindReadOnlyPaths=%D/radicle/keys
+BindReadOnlyPaths=%S/nix/profile
+
+AmbientCapabilities=
+CapabilityBoundingSet=
+DeviceAllow=
+KeyringMode=private
+LockPersonality=true
+MemoryDenyWriteExecute=true
+NoNewPrivileges=true
+PrivateDevices=true
+PrivateTmp=true
+PrivateUsers=self
+ProcSubset=pid
+ProtectClock=true
+ProtectHome=tmpfs
+ProtectHostname=true
+ProtectKernelLogs=true
+ProtectProc=invisible
+ProtectSystem=strict
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+RestrictNamespaces=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+RuntimeDirectoryMode=0700
+SocketBindDeny=any
+StateDirectoryMode=0750
+SystemCallFilter=@system-service
+UMask=0067
+
+[Install]
+# Don't start automatically
