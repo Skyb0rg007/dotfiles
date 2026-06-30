@@ -9,6 +9,8 @@
 	tool = vimdiff
 [difftool]
 	prompt = false
+[fetch]
+    prune = true
 
 # Code signing
 [user]
