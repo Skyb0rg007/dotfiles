@@ -7,7 +7,9 @@
 for dir in /run/current-system/sw /usr; do
     gen="$dir/lib/systemd/user-environment-generators/30-systemd-environment-d-generator"
     if [ -x "$gen" ]; then
-        eval "$("$gen" | sed 's/^/export /')"
+        _systemd_environment_d_generator="$gen"
+        # shellcheck disable=SC2016
+        eval "$("$gen" | sed 's/^PATH=/PATH=$PATH:/; s/^/export /')"
         break
     fi
 done
