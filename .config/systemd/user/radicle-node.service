@@ -16,8 +16,7 @@ StateDirectory=radicle
 Environment=RAD_HOME=%D/radicle
 Environment=RAD_SOCKET=%t/radicle/control.sock
 #ImportCredential=dev.radicle.node.secret
-#ImportCredential=dev.radicle.node.passphrase
-ImportCredential=xyz.radicle.node.passphrase
+ImportCredential=dev.radicle.node.passphrase
 
 BindPaths=%D/radicle/cobs
 BindPaths=%D/radicle/node
