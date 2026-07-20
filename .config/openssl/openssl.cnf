@@ -25,6 +25,41 @@ tcg-cap-verifiedTPMFixed = TCG Verified fixedTPM bit, 2.23.133.11.1.2
 tcg-cap-verifiedTPMRestricted = TCG Verified fixedTPM and Restricted bits, 2.23.133.11.1.3
 tcg-cap-intendedUseDevID = TCG Intended for DevID, 2.23.133.11.1.4
 
+## Sigstore ##
+# https://github.com/sigstore/fulcio/blob/main/docs/oid-info.md
+sigstore = Sigstore, 1.3.6.1.4.1.57264
+fulcio = Sigstore Fulcio, 1.3.6.1.4.1.57264.1
+fulcio-issuer = Fulcio Issuer, 1.3.6.1.4.1.57264.1.1
+fulcio-github-workflow-trigger = Fulcio GitHub Workflow Trigger, 1.3.6.1.4.1.57264.1.2
+fulcio-github-workflow-sha = Fulcio GitHub Workflow SHA, 1.3.6.1.4.1.57264.1.3
+fulcio-github-workflow-name = Fulcio GitHub Workflow Name, 1.3.6.1.4.1.57264.1.4
+fulcio-github-workflow-repository = Fulcio GitHub Workflow Repository, 1.3.6.1.4.1.57264.1.5
+fulcio-github-workflow-ref = Fulcio GitHub Workflow Ref, 1.3.6.1.4.1.57264.1.6
+fulcio-othername-san = Fulcio OtherName SAN, 1.3.6.1.4.1.57264.1.7
+fulcio-issuer-v2 = Fulcio Issuer (V2), 1.3.6.1.4.1.57264.1.8
+fulcio-build-signer-uri = Fulcio Build Signer URI, 1.3.6.1.4.1.57264.1.9
+fulcio-build-signer-digest = Fulcio Build Signer Digest, 1.3.6.1.4.1.57264.1.10
+fulcio-runner-environment = Fulcio Runner Environment, 1.3.6.1.4.1.57264.1.11
+fulcio-source-repository-uri = Fulcio Source Repository URI, 1.3.6.1.4.1.57264.1.12
+fulcio-source-repository-digest = Fulcio Source Repository Digest, 1.3.6.1.4.1.57264.1.13
+fulcio-source-repository-ref = Fulcio Source Repository Ref, 1.3.6.1.4.1.57264.1.14
+fulcio-source-repository-identifier = Fulcio Source Repository Identifier, 1.3.6.1.4.1.57264.1.15
+fulcio-source-repository-owner-uri = Fulcio Source Repository Owner URI, 1.3.6.1.4.1.57264.1.16
+fulcio-source-repository-owner-identifier = Fulcio Source Repository Owner Identifier, 1.3.6.1.4.1.57264.1.17
+fulcio-build-config-uri = Fulcio Build Config URI, 1.3.6.1.4.1.57264.1.18
+fulcio-build-config-digest = Fulcio Build Config Digest, 1.3.6.1.4.1.57264.1.19
+fulcio-build-trigger = Fulcio Build Trigger, 1.3.6.1.4.1.57264.1.20
+fulcio-run-invocation-uri = Fulcio Run Invocation URI, 1.3.6.1.4.1.57264.1.21
+fulcio-source-repository-visibility-at-signing = Fulcio Source Repository Visibility At Signing, 1.3.6.1.4.1.57264.1.22
+fulcio-deployment-environment = Fulcio Deployment Environment, 1.3.6.1.4.1.57264.1.23
+fulcio-token-subject = Fulcio Token Subject, 1.3.6.1.4.1.57264.1.24
+sigstore-timestamp-authority = Sigstore Timestamp Authority, 1.3.6.1.4.1.57264.2
+
+## CA/Browser Forum ##
+cab-code-non-ev-policy-id = CA/B Forum Non-EV Code Signing Certificate, 2.23.140.1.4.1
+cab-code-timestamp-policy-id = CA/B Forum Timestamp Certificate, 2.23.140.1.4.2
+cab-code-ev-policy-id = CA/B Forum EV Code Signing Certificate, 2.23.140.1.3
+
 ## 802.1ar Secure Device Identity ##
 
 ## RFC 4108 ##
