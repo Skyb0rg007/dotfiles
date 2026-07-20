@@ -21,7 +21,7 @@ vim.pack.add {
     "https://github.com/nxuv/just.nvim",
     "https://github.com/pest-parser/pest.vim",
     "https://github.com/niklasl/vim-rdf",
-    -- "https://github.com/whonore/coqtail",
+    "https://github.com/whonore/coqtail",
     -- Dependencies
     "https://github.com/nvim-tree/nvim-web-devicons",
     "https://github.com/nvim-lua/plenary.nvim",
@@ -47,7 +47,7 @@ vim.cmd('packadd! nvim-treesitter-endwise')
 
 -- Syntax highlighting
 require('ale').setup({
-    completion_enabled = true,
+    completion_enabled = false, -- no auto completion
     warn_about_trailing_whitespace = true,
     sign_column_always = true,
 })
