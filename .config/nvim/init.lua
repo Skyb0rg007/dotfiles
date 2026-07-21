@@ -181,6 +181,7 @@ vim.filetype.add({
     },
     pattern = {
         ['${XDG_CONFIG_HOME}/environment.d/.*%.conf'] = 'env',
+        ['${XDG_DATA_HOME}/bash%-completion/completions/.*'] = 'sh',
     },
     filename = {
         ['mkosi.conf'] = 'systemd',
