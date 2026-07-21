@@ -1,0 +1,7 @@
+# shellcheck shell=bash
+
+mkcd () {
+    # shellcheck disable=SC2164
+    mkdir -p "$1" && cd "$1"
+}
+

@@ -3,248 +3,45 @@
 # Only run in interactive shells
 [[ $- == *i* ]] || return
 
-# shellcheck source=/home/skye/.profile
-source ~/.profile
+# Split Bash configuration à-la UAPI.6
+# Will end up loading ~/.config/bash/bashrc and ~/.config/bash/bashrc.d/*.sh
+_uapi6_source() {
+    local d f dropin
+    local -A dropins
+    local -a dirs=("$@") sorted_dropins
 
-## Bash settings
-
-alias vim=nvim
-
-HISTCONTROL=ignoreboth
-HISTFILE="$XDG_STATE_HOME/bash/history"; mkdir -p "$XDG_STATE_HOME/bash"
-HISTFILESIZE=1000
-HISTIGNORE="exit"
-HISTSIZE=1000
-MAILCHECK=0
-
-shopt -s histappend
-shopt -s checkwinsize
-shopt -s extglob
-shopt -s globstar
-shopt -s checkjobs
-shopt -s hostcomplete
-
-set -o ignoreeof
-
-# Use an array for PROMPT_COMMAND
-declare -a PROMPT_COMMAND
-
-# Prompt
-__get_terminal_column () {
-    local oldstty pos
-    # We need to capture the output from the tty
-    exec < /dev/tty
-    oldstty="$(stty --save)"
-    stty raw -echo min 0
-    # tput u7 > /dev/tty
-    printf '\e[6n' > /dev/tty
-    IFS=';' read -r -d R -a pos
-    stty "$oldstty"
-    echo "$((pos[1] - 1))"
-}
-
-hexcode_truecolor () {
-    printf '\e[38;2;%d;%d;%dm' "0x${1:0:2}" "0x${1:2:2}" "0x${1:4:2}"
-}
-
-case "$TERM" in
-    xterm-color|xterm-kitty|*-256color) color_prompt=yes
-esac
-
-if command -v tput &>/dev/null && tput setaf 1 &>/dev/null; then
-    color_prompt=yes
-fi
-
-if [ "$color_prompt" = yes ]; then
-    _color_reset=$'\e[0m'
-    _color_yellow="$(hexcode_truecolor e5c07b)"
-    _color_green="$(hexcode_truecolor 98c379)"
-    _color_white="$(hexcode_truecolor dcdfe4)"
-    _color_cyan="$(hexcode_truecolor 56b6c2)"
-    _color_blue="$(hexcode_truecolor 61afef)"
-    _color_magenta="$(hexcode_truecolor c678dd)"
-    _color_red="$(hexcode_truecolor e06c75)"
-fi
-
-_prompt_prefix=""
-_prompt_jobs=""
-_prompt_exit_status="0"
-_prompt_exit_color="$_color_green"
-
-prompt_command () {
-    _prompt_exit_status="$?"
-    local -a _jobs
-
-    mapfile -t _jobs < <(jobs -p)
-    if [[ "${#_jobs[@]}" -gt 0 ]]; then
-        _prompt_jobs=" [${#_jobs[@]}]"
-    else
-        _prompt_jobs=""
-    fi
-    if [[ $_prompt_exit_status = 0 ]]; then
-        _prompt_exit_color="$_color_green"
-    else
-        _prompt_exit_color="$_color_red"
-    fi
-    if [[ -n $DIRENV_DIR ]]; then
-        _prompt_prefix="(dir) "
-    elif [[ -n $ENVOLUNTARY_ENV_STATE ]]; then
-        _prompt_prefix="(env) "
-    elif [[ $TMPDIR =~ ^/tmp/nix-shell ]]; then
-        _prompt_prefix="(nix) "
-    elif [[ $SHLVL -gt 1 ]]; then
-        _prompt_prefix="(sh) "
-    else
-        _prompt_prefix=""
-    fi
-}
-
-# source __git_ps1
-IFS=: read -ra _data_dirs <<<"$XDG_DATA_DIRS"
-for _data_dir in "${_data_dirs[@]}"; do
-    if [[ -e $_data_dir/git/contrib/completion/git-prompt.sh ]]; then
-        # shellcheck source=/run/current-system/sw/share/git/contrib/completion/git-prompt.sh
-        source "$_data_dir/git/contrib/completion/git-prompt.sh"
-        break
-    fi
-done
-unset _data_dir _data_dirs
-
-# __git_ps1 configuration
-GIT_PS1_SHOWDIRTYSTATE=1
-GIT_PS1_SHOWSTASHSTATE=1
-GIT_PS1_SHOWUNTRACKEDFILES=1
-GIT_PS1_SHOWUPSTREAM=1
-GIT_PS1_SHOWCONFLICTSTATE=1
-
-PROMPT_COMMAND+=(prompt_command)
-PS1='\[$_color_cyan\]$_prompt_prefix\[$_color_reset\]'
-PS1+='\[${_color_yellow}\]\u@\h\[$_color_reset\]'
-PS1+=' \[${_color_blue}\]\w\[$_color_reset\]'
-PS1+='\[$_color_red\]$_prompt_jobs\[$_color_reset\]'
-if declare -pf __git_ps1 &>/dev/null; then
-    PS1+='\[$_color_magenta\]$(__git_ps1)\[$_color_reset\]'
-fi
-PS1+='\n\[$_prompt_exit_color\]($_prompt_exit_status)\[$_color_reset\]'
-PS1+=' \[$_color_white\]>\[$_color_reset\] '
-
-alias ls='ls --color=auto'
-alias l='ls -C'
-alias la='ls --almost-all'
-alias ll='ls --almost-all --classify -l'
-
-if command -v adb >/dev/null && [[ -v ANDROID_USER_HOME ]]; then
-    alias adb='HOME="$ANDROID_USER_HOME" adb'
-fi
-
-if command -v plocate >/dev/null; then
-    alias locate='plocate'
-fi
-
-# Helpers
-mkcd () {
-    # shellcheck disable=SC2164
-    mkdir -p "$1" && cd "$1"
-}
-
-# bat
-if command -v batman >/dev/null; then
-    eval "$(batman --export-env)"
-fi
-if command -v batpipe >/dev/null; then
-    eval "$(batpipe)"
-fi
-
-# direnv
-if command -v direnv >/dev/null; then
-    eval "$(direnv hook bash)"
-fi
-
-# envoluntary
-if _envoluntary_path="$(command -v envoluntary)"; then
-    # eval "$(envoluntary shell hook bash)"
-    _envoluntary_hook() {
-        local prev_status=$?
-        local vars
-        if [ -x "$_envoluntary_path" ]; then
-            vars="$("$_envoluntary_path" shell export bash)"
-            trap -- '' SIGINT
-            eval "$vars"
-            trap - SIGINT
+    for d in "${dirs[@]}"; do
+        if [[ -f "$d/bash/bashrc" ]]; then
+            # shellcheck source=.config/bash/bashrc
+            source "$d/bash/bashrc"
+            break
         fi
-        return $prev_status
-    }
-    if [[ ";${PROMPT_COMMAND[*]:-};" != *";_envoluntary_hook;"* ]]; then
-        # envoluntary should go before prompt_command
-        PROMPT_COMMAND=(_envoluntary_hook "${PROMPT_COMMAND[@]}")
-    fi
-fi
+    done
 
-# fzf
-if command -v fzf >/dev/null && [[ :$SHELLOPTS: =~ :(vi|emacs): ]]; then
-    eval "$(fzf --bash)"
-fi
+    for d in "${dirs[@]}"; do
+        [[ -d "$d/bash/bashrc.d" ]] || continue
+        for f in "$d/bash/bashrc.d/"*.sh; do
+            [[ -f "$f" || -h "$f" ]] || continue
+            dropin="${f##*/}"
+            [[ -v dropins[$dropin] ]] || dropins[$dropin]="$f"
+        done
+    done
 
-# oci-cli
-if command -v oci >/dev/null; then
-    _oci_completion() {
-        mapfile -t COMPREPLY < <(
-            env COMP_WORDS="${COMP_WORDS[*]}" \
-                COMP_CWORD="$COMP_CWORD" \
-                _OCI_COMPLETE="complete" \
-                "$1")
-        return 0
-    }
-    complete -F _oci_completion -o default oci
-fi
+    [[ ${#dropins[@]} -gt 0 ]] || return
 
-# gpg
-# shellcheck disable=SC2155
-export GPG_TTY="$(tty)"
+    mapfile -d '' -t sorted_dropins < <(
+        printf '%s\0' "${!dropins[@]}" | LC_ALL=C sort --zero-terminated)
 
-# kitty
-if [ -n "$KITTY_INSTALLATION_DIR" ]; then
-    export KITTY_SHELL_INTEGRATION=enabled
-    # shellcheck source=/dev/null
-    source "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"
-fi
-if command -v kitten >/dev/null; then
-    # alias ssh='kitten ssh'
-    alias clip='kitten clipboard'
-    alias kdiff='kitten diff'
-    alias khints='kitten hints'
-    alias knotify='kitten notify'
-fi
+    for dropin in "${sorted_dropins[@]}"; do
+        f="${dropins[$dropin]}"
+        [[ -s "$f" ]] || continue
+        # shellcheck disable=1090
+        source "$f"
+    done
+}
 
-# less
-if command -v lesspipe >/dev/null; then
-    eval "$(lesspipe)"
-fi
-
-# nnn
-export NNN_OPTS="eoR"
-export NNN_ORDER=""
-if command -v xdg-user-dir >/dev/null; then
-    NNN_ORDER="$NNN_ORDER${NNN_ORDER:+;}t:$(xdg-user-dir DOWNLOAD)"
-fi
-if command -v saidar >/dev/null; then
-    export NNN_LOCKER="saidar -c"
-fi
-if command -v trash-cli >/dev/null; then
-    export NNN_TRASH="1"
-fi
-if command -v nnn >/dev/null; then
-    n () {
-        if [ "${NNNLVL:-0}" -ne 0 ]; then
-            echo "nnn is already running"
-            return
-        fi
-        command nnn "$@"
-        if [ -f "$NNN_TMPFILE" ]; then
-            # shellcheck source=/dev/null
-            source "$NNN_TMPFILE"
-            rm -f -- "$NNN_TMPFILE" >/dev/null
-        fi
-    }
-fi
+_uapi6_source \
+    "${XDG_CONFIG_HOME:-$HOME/.config}" \
+    ${XDG_RUNTIME_DIR:+"$XDG_RUNTIME_DIR"}
+# /etc /run /usr/local/lib /usr/lib
 

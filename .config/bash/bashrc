@@ -1,0 +1,11 @@
+# shellcheck shell=bash
+
+# This file is for critical settings and configuration
+# Use the overrides in ~/.config/bash/bashrc.d for most things.
+
+# shellcheck source=../../.profile
+source ~/.profile
+
+# Use an array for PROMPT_COMMAND
+declare -a PROMPT_COMMAND
+
