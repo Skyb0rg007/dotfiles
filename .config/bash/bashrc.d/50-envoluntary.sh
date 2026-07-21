@@ -22,4 +22,3 @@ if _envoluntary_path="$(command -v envoluntary)"; then
         fi
     fi
 fi
-

@@ -7,5 +7,5 @@
 source ~/.profile
 
 # Use an array for PROMPT_COMMAND
-declare -a PROMPT_COMMAND
+declare -ga PROMPT_COMMAND
 

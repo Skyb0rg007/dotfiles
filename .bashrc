@@ -5,22 +5,24 @@
 
 # Split Bash configuration à-la UAPI.6
 # Will end up loading ~/.config/bash/bashrc and ~/.config/bash/bashrc.d/*.sh
-_uapi6_source() {
-    local d f dropin
+
+# _uapi6_load_sourced_files prefix suffix dirs...
+_uapi6_load_sourced_files() {
+    local d f dropin prefix="$1" suffix="$2"
+    shift 2
     local -A dropins
     local -a dirs=("$@") sorted_dropins
 
     for d in "${dirs[@]}"; do
-        if [[ -f "$d/bash/bashrc" ]]; then
-            # shellcheck source=.config/bash/bashrc
-            source "$d/bash/bashrc"
+        if [[ -f "$d/$prefix" ]]; then
+            _uapi6_sourced_files+=("$d/$prefix")
             break
         fi
     done
 
     for d in "${dirs[@]}"; do
-        [[ -d "$d/bash/bashrc.d" ]] || continue
-        for f in "$d/bash/bashrc.d/"*.sh; do
+        [[ -d "$d/$prefix.d" ]] || continue
+        for f in "$d/$prefix.d/"*"$suffix"; do
             [[ -f "$f" || -h "$f" ]] || continue
             dropin="${f##*/}"
             [[ -v dropins[$dropin] ]] || dropins[$dropin]="$f"
@@ -35,13 +37,25 @@ _uapi6_source() {
     for dropin in "${sorted_dropins[@]}"; do
         f="${dropins[$dropin]}"
         [[ -s "$f" ]] || continue
-        # shellcheck disable=1090
-        source "$f"
+        _uapi6_sourced_files+=("$f")
     done
 }
 
-_uapi6_source \
-    "${XDG_CONFIG_HOME:-$HOME/.config}" \
+declare -a _uapi6_sourced_files=()
+declare -a _uapi6_directories=(
+    "${XDG_CONFIG_HOME:-$HOME/.config}"
     ${XDG_RUNTIME_DIR:+"$XDG_RUNTIME_DIR"}
-# /etc /run /usr/local/lib /usr/lib
+    /etc
+    /run
+    /usr/local/lib
+    /usr/lib)
 
+_uapi6_load_sourced_files bash/bashrc sh "${_uapi6_directories[@]}"
+
+# Perform the sourcing at toplevel to avoid scoping issues
+for _uapi6_src in "${_uapi6_sourced_files[@]}"; do
+    # shellcheck disable=1090
+    source "$_uapi6_src"
+done
+
+unset _uapi6_src
